@@ -1,7 +1,8 @@
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
-		URL_BASE: "http://127.0.0.1:3000"
+		URL_BASE: "http://127.0.0.1:3000",
+    token: localStorage.getItem("token") || ""
     },
     actions: {
       handle_register: async (register) => {
