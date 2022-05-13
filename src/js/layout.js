@@ -1,14 +1,13 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
-
 import { Home } from "./views/home";
 import { Demo } from "./views/demo";
 import { Single } from "./views/single";
 import injectContext from "./store/appContext";
-
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import Register from "./component/register";
 
 //create your first component
 const Layout = () => {
@@ -20,14 +19,14 @@ const Layout = () => {
 		<div>
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
-					<Navbar />
-					<Routes >
-						<Route path="/" element={<Home />}/>
-						<Route path="/demo" element={<Demo />}/> 
-						<Route path="/single/:theid" element={<Single />}/>
-						<Route path="*" element={<h1>Not found!</h1>}/>
+					<Routes>
+						<Route path="/" element={<Home />}>
+						</Route>
+						<Route path="/register" element={<Register />}>
+						</Route>
+						<Route path="*" element={<h1>Not found!</h1>}>
+						</Route>
 					</Routes>
-					<Footer />
 				</ScrollToTop>
 			</BrowserRouter>
 		</div>
