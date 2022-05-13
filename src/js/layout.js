@@ -19,6 +19,7 @@ const Layout = () => {
 		<div>
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
+				<Navbar />
 					<Routes>
 						<Route path="/" element={<Home />}>
 						</Route>
@@ -27,6 +28,7 @@ const Layout = () => {
 						<Route path="*" element={<h1>Not found!</h1>}>
 						</Route>
 					</Routes>
+					<Footer />
 				</ScrollToTop>
 			</BrowserRouter>
 		</div>
