@@ -6,9 +6,11 @@ import { Demo } from "./views/demo";
 import { Single } from "./views/single";
 import injectContext from "./store/appContext";
 import Register from "./Home/register";
+import Login from "./Home/login";
 import { About } from "./Home/about";
 import { Services } from "./Home/services";
 import { Contact } from "./Home/contact";
+import { Workspace } from "./component/Workspace/workspace";
 
 
 //create your first component
@@ -23,10 +25,12 @@ const Layout = () => {
 				<ScrollToTop>				
 					<Routes>
 						<Route path="/" element={<Home />}/>
+						<Route path="/workspace" element={<Workspace />}/>
 						<Route path="/about" element={<About />}/>
 						<Route path="/services" element={<Services />}/>
 						<Route path="/contact" element={<Contact />}/>
 						<Route path="/register" element={<Register />}/>
+						<Route path="/login" element={<Login />}/>
 						<Route path="*" element={<h1>Not found!</h1>}/>
 					</Routes>
 				</ScrollToTop>
