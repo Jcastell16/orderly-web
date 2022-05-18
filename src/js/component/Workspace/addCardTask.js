@@ -4,27 +4,39 @@ import { Link } from "react-router-dom";
 
 export const AddCardTask = () => {
     const [cardlist, setCardlist] = useState([]);
+    const [task, setTask] = useState({
+        title: "",
+        content: ""
+    })
+    const [taskList, setTaskList] = useState([])
+
+    const handleTask = (task)=>(
+        setTaskList({
+            ...taskList, task
+        })
+
+    )
     const DivItem = () => {
         return (
             <div className="card border-secondary mb-3" style={{ "maxWidth": "15rem" }}>
                 <div className="card-header d-flex justify-content-between pb-3">
                     <h5 className="card-title">Title Task</h5>
-                    <button type="button" class="btn btn-outline-dark border-0" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <button type="button" className="btn btn-outline-dark border-0" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     <i className="fas fa-pencil-alt"></i>
                     </button>
-                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div className="modal-dialog">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <input placeholder="enter title" name="title" onChange={(event)=> setTask({...task, [event.target.name]: event.target.value})}></input>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
-                                    ...
+                                <div className="modal-body">
+                                    <input placeholder="content task" name="content" onChange={(event) => setTask({...task, [event.target.name]: event.target.value})}></input>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-success">Save</button>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" className="btn btn-success" onClick={()=>handleTask(task)}>Save</button>
                                 </div>
                             </div>
                         </div>

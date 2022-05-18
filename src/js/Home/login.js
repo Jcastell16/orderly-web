@@ -21,11 +21,11 @@ const Login = () => {
                                     <div className="">
                                     <div className="d-flex flex-row align-items-center mb-4">
                                     <i className="fas fa-envelope fa-lg me-2 fa-fw"></i>
-                                    <input type="email" id="defaultLoginFormEmail" className="form-control" placeholder="E-mail" onChange={(event) => setLogin({ ...login, [event.target.name]: event.target.value })} />
+                                    <input type="email" id="defaultLoginFormEmail" className="form-control" name="email" placeholder="E-mail" onChange={(event) => setLogin({ ...login, [event.target.name]: event.target.value })} />
                                     </div>
                                     <div className="d-flex flex-row align-items-center mb-4">
                                     <i className="fas fa-lock fa-lg me-2 fa-fw"></i>
-                                        <input type="password" id="defaultLoginFormPassword" className="form-control" placeholder="Password" onChange={(event) => setLogin({ ...login, [event.target.name]: event.target.value })} />
+                                        <input type="password" id="defaultLoginFormPassword" className="form-control" name="password" placeholder="Password" onChange={(event) => setLogin({ ...login, [event.target.name]: event.target.value })} />
                                         </div>
                                         <div className="d-flex justify-content-around">
                                             <div>

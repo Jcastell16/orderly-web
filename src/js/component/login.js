@@ -14,7 +14,7 @@ const Login = () => {
                     <div className="row mb-3 justify-content-center">
                         <label className="col-1">Email:</label>
                         <div className="col-4">
-                            <input type="email" className="form-control" name="email" onChange={(event) => setLogin({ ...login, [event.target.name]: event.target.value })} />
+                            <input type="email" className="form-control" name="email"  onChange={(event) => setLogin({ ...login, [event.target.name]: event.target.value })} />
                         </div>
                     </div>
                     <div className="row mb-3 justify-content-center">
