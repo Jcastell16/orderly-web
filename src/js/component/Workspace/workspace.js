@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import { Offcanvas } from "./offcanvas";
 import { AddCardTask } from "./addCardTask";
