@@ -2,13 +2,15 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./views/home";
-import { Demo } from "./views/demo";
-import { Single } from "./views/single";
 import injectContext from "./store/appContext";
-import { Navbar } from "./component/navbar";
-import { Footer } from "./component/footer";
-import Register from "./component/register";
 import { Newproject } from "./component/newproject";
+import Register from "./Home/register";
+import Login from "./Home/login";
+import { About } from "./Home/about";
+import { Services } from "./Home/services";
+import { Contact } from "./Home/contact";
+import { Workspace } from "./component/Workspace/workspace";
+
 
 //create your first component
 const Layout = () => {
@@ -19,19 +21,18 @@ const Layout = () => {
 	return (
 		<div>
 			<BrowserRouter basename={basename}>
-				<ScrollToTop>
-				<Navbar />
+				<ScrollToTop>				
 					<Routes>
-						<Route path="/" element={<Home />}>
-						</Route>
-						<Route path="/register" element={<Register />}>
-						</Route>
-						<Route path="/newproject" element={<Newproject />}>
-						</Route>
-						<Route path="*" element={<h1>Not found!</h1>}>
-						</Route>
+						<Route path="/" element={<Home />}/>
+						<Route path="/workspace" element={<Workspace />}/>
+						<Route path="/about" element={<About />}/>
+						<Route path="/services" element={<Services />}/>
+						<Route path="/contact" element={<Contact />}/>
+						<Route path="/newproject" element={<Newproject />}/>
+						<Route path="/register" element={<Register />}/>
+						<Route path="/login" element={<Login />}/>
+						<Route path="*" element={<h1>Not found!</h1>}/>
 					</Routes>
-					<Footer />
 				</ScrollToTop>
 			</BrowserRouter>
 		</div>

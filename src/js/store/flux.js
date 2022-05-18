@@ -1,7 +1,8 @@
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
-		URL_BASE: "http://127.0.0.1:3000",
+      URL_BASE: "http://127.0.0.1:3000",
+      token: localStorage.getItem("token") || "",
     },
     actions: {
       handle_register: async (register) => {
@@ -24,7 +25,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       handle_newProyect: async (project, memberList) => {
-        try{
+        try {
           const response = await fetch(`${store.URL_BASE}/newproject`, {
             method: "POST",
             headers: {
@@ -37,11 +38,31 @@ const getState = ({ getStore, getActions, setStore }) => {
           } else {
             console.log("Hubo un error");
           }
-        }catch(error){
-          console.log(error)
+        } catch (error) {
+          console.log(error);
         }
+      },
+    },
+    handleLogin: async (login) => {
+      let store = getStore();
+      const response = await fetch(`${store.URL_BASE}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(login),
+      });
+      let data = await response.json();
+      if (response.ok) {
+        setStore({
+          ...store,
+          token: data.token,
+        });
+        localStorage.setItem("token", data.token);
+      } else {
+        console.log("ocurrio un error");
       }
-    }
+    },
   };
 };
 
