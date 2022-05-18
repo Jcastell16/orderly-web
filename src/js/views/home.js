@@ -12,7 +12,7 @@ export const Home = () => (
                 <div className="text-white mt-5">
                     <h1 className="mb-3">Quieres manejar tus proyectos de forma organizada?</h1>
                     <h4 className="mb-3">Con Orderly podras orgarnizar tus proyectos de mejor manera y <br/>agregar tareas que te permitiran ser efectivo y organizado</h4>
-                    <Link className="btn btn-outline-light border-3 btn-lg" to="#!" role="button">Registrarme Ahora</Link>
+                    <Link className="btn btn-outline-light border-3 btn-lg" to="/register" role="button">Registrarme Ahora</Link>
                 </div>
             </div>
         </div>
