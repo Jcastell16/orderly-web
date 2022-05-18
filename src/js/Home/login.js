@@ -31,7 +31,7 @@ const Login = () => {
                                             <div>
                                                 <div className="custom-control custom-checkbox mb-3">
                                                     <input type="checkbox" className="custom-control-input me-1" id="defaultLoginFormRemember" />
-                                                    <label className="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+                                                    <label className="custom-control-label" htmlFor="defaultLoginFormRemember">Remember me</label>
                                                 </div>
                                             </div>
                                             <div>

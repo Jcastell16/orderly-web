@@ -2,8 +2,6 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./views/home";
-import { Demo } from "./views/demo";
-import { Single } from "./views/single";
 import injectContext from "./store/appContext";
 import Register from "./Home/register";
 import Login from "./Home/login";
@@ -12,10 +10,6 @@ import { Services } from "./Home/services";
 import { Contact } from "./Home/contact";
 import { Workspace } from "./component/Workspace/workspace";
 
-import { Navbar } from "./component/navbar";
-import { Footer } from "./Home/footer";
-// import Register from "./component/register";
-// import  Login  from "./component/login";
 
 //create your first component
 const Layout = () => {
@@ -36,13 +30,6 @@ const Layout = () => {
 						<Route path="/register" element={<Register />}/>
 						<Route path="/login" element={<Login />}/>
 						<Route path="*" element={<h1>Not found!</h1>}/>
-						
-						{/* <Route path="/register" element={<Register />}/>
-						
-						<Route path="*" element={<h1>Not found!</h1>}/>
-
-						<Route path="/login" element={<Login />}/> */}
-						
 					</Routes>
 				</ScrollToTop>
 			</BrowserRouter>
