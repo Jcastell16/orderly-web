@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
     actions: {
       handle_register: async (register) => {
+        let store = getStore();
         try {
           const response = await fetch(`${store.URL_BASE}/register`, {
             method: "POST",
@@ -25,13 +26,15 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       handle_newProyect: async (project, memberList) => {
+        let store = getStore();
         try {
           const response = await fetch(`${store.URL_BASE}/newproject`, {
             method: "POST",
+            body: JSON.stringify(project, memberList),
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${store.token}`,
             },
-            body: JSON.stringify(project, memberList),
           });
           if (response.ok) {
             console.log("Projecto y miembros fueron registrados");

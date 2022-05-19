@@ -1,8 +1,9 @@
-import React, { useState, useContext, useEffect} from "react";
+import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "../views/home";
 
 const initialState = {
   email: "",
@@ -11,37 +12,40 @@ const initialState = {
 
 export const Newproject = () => {
   const { store, actions } = useContext(Context);
+  
   const [isGroup, setIsGroup] = useState("");
 
   const [member, setMember] = useState(initialState);
   const [memberList, setMemberList] = useState([]);
 
-  const [users, setUsers]= useState([])
+  const [users, setUsers] = useState([]);
 
   const [project, setproject] = useState({
     name: "",
-    start_date: new Date(),
     due_date: "",
-    status: "",
-    description: ""
+    description: "",
   });
 
   const handleOnChange = (value) => {
     setIsGroup(value);
+    if (value == "individual") {
+      setMemberList([]);
+    }
   };
   const handleChangeMember = (event) => {
     setMember({ ...member, [event.target.name]: event.target.value });
-    getUsers(member.email)
+    getUsers(member.email);
   };
 
   const updateMember = () => {
-    if (member.email.trim() != "" && member.rol.trim() != "") {
-
-      let repeatMember = memberList.filter(
-        (item, index) => item.email == member.email
-      );
-      if (repeatMember.length == 0) {
-        setMemberList([...memberList, member]);
+    if (users.email.length > 0) {
+      if (member.email.trim() != "" && member.rol.trim() != "") {
+        let repeatMember = memberList.filter(
+          (item, index) => item.email == member.email
+        );
+        if (repeatMember.length == 0) {
+          setMemberList([...memberList, member]);
+        }
       }
     }
   };
@@ -51,6 +55,10 @@ export const Newproject = () => {
     setMemberList(newListMember);
   };
 
+  const onSuggestHandler = (users) =>{
+    setMember(users)
+    setUsers([])
+  }
   const getUsers = async (email) => {
     try {
       let response = await fetch(`${store.URL_BASE}/users/${email}`, {
@@ -62,6 +70,7 @@ export const Newproject = () => {
       });
       if (response.ok) {
         let data = await response.json();
+        console.log(data);
         setUsers({
           ...users,
           email: data,
@@ -70,10 +79,8 @@ export const Newproject = () => {
     } catch (error) {
       console.log("Hubo un error", error);
     }
-  }
-
-  console.log(users)
-
+  };
+  console.log(memberList, project)
   return (
     <>
       <section className="vh-100">
@@ -163,13 +170,24 @@ export const Newproject = () => {
                         <div className="col-md-6">
                           <label className="form-label">Miembros</label>
                           <input
-                            type="text"
+                            type="email"
                             className="form-control"
                             id="miembros"
                             name="email"
                             value={member.email}
                             onChange={handleChangeMember}
+                            // onBlur = {()=>{
+                            //   setTimeout(()=>{
+                            //     setUsers([])
+                            //   },100);
+                            // }}
                           />
+                          {/* {users.email &&
+                            users.email.map((users, i) => (
+                              <div key={i} className=" suggestion col-md-12" onClick={()=> onSuggestHandler(users.email)}>
+                                {users.email}
+                              </div>
+                            ))} */}
                         </div>
                         <div className="col-md-4">
                           <label className="form-label">Rol</label>
@@ -214,27 +232,6 @@ export const Newproject = () => {
                     ) : (
                       ""
                     )}
-
-                    <div className="col-md-3">
-                      <label className="form-label">Status</label>
-                      <select
-                        className="form-select"
-                        aria-label="Default select example"
-                        value={project.status}
-                        name="status"
-                        onChange={(event) =>
-                          setproject({
-                            ...project,
-                            [event.target.name]: event.target.value,
-                          })
-                        }
-                      >
-                        <option value="En curso">En curso</option>
-                        <option value="Con retraso">Con retraso</option>
-                        <option value="En espera">En espera</option>
-                        <option value="Finalizado">Finalizado</option>
-                      </select>
-                    </div>
                     <div className="col-md-8">
                       <label className="form-label">Descripción</label>
                       <textarea
@@ -253,8 +250,11 @@ export const Newproject = () => {
                     <div className="col-md-12">
                       <Link
                         className="btn btn-secondary"
-                        to="/"
-                        onClick={() => actions.handle_newProject(project, memberList)}
+                        to="/workspace"
+                        type="submit"
+                        onClick={() =>
+                          actions.handle_newProject(project)
+                        }
                       >
                         <span>Guardar</span>
                       </Link>

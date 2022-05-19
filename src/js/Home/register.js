@@ -5,7 +5,7 @@ import { Footer } from "./footer"
 import orderlynav from "../../img/orderly-nav.png";
 
 const Register = () => {
-  const { store, actions } = useContext(Context);
+  const {actions } = useContext(Context);
 
   const [register, setRegister] = useState({
     name: "",
@@ -13,6 +13,8 @@ const Register = () => {
     email: "",
     password: "",
   });
+
+  console.log(register)
   return (
     <>
 
