@@ -248,16 +248,15 @@ export const Newproject = () => {
                       ></textarea>
                     </div>
                     <div className="col-md-12">
-                      <Link
+                      <button
                         className="btn btn-secondary"
-                        to="/workspace"
                         type="submit"
                         onClick={() =>
-                          actions.handle_newProject(project)
+                          actions.handle_newProject(project, memberList)
                         }
                       >
                         <span>Guardar</span>
-                      </Link>
+                      </button>
                     </div>
                   </form>
                 </div>
