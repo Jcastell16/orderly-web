@@ -16,7 +16,6 @@ export const Newproject = () => {
   const [isGroup, setIsGroup] = useState("");
 
   const [member, setMember] = useState(initialState);
-  const [memberList, setMemberList] = useState([]);
 
   const [users, setUsers] = useState([]);
 
@@ -24,12 +23,13 @@ export const Newproject = () => {
     name: "",
     due_date: "",
     description: "",
+    members: []
   });
 
   const handleOnChange = (value) => {
     setIsGroup(value);
     if (value == "individual") {
-      setMemberList([]);
+      setproject({...project, members: []});
     }
   };
   const handleChangeMember = (event) => {
@@ -40,25 +40,25 @@ export const Newproject = () => {
   const updateMember = () => {
     if (users.email.length > 0) {
       if (member.email.trim() != "" && member.rol.trim() != "") {
-        let repeatMember = memberList.filter(
+        let repeatMember = project.members.filter(
           (item, index) => item.email == member.email
         );
         if (repeatMember.length == 0) {
-          setMemberList([...memberList, member]);
+          setproject({...project, members: [...project.members, member]});
         }
       }
     }
   };
 
   const deleteMember = (id) => {
-    let newListMember = memberList.filter((item, index) => index != id);
-    setMemberList(newListMember);
+    let newListMember = project.members.filter((item, index) => index != id);
+    setproject({...project, members: newListMember});
   };
 
-  const onSuggestHandler = (users) =>{
-    setMember(users)
-    setUsers([])
-  }
+  // const onSuggestHandler = (event) =>{
+  //   setMember(event)
+  //   setUsers([])
+  // }
   const getUsers = async (email) => {
     try {
       let response = await fetch(`${store.URL_BASE}/users/${email}`, {
@@ -80,14 +80,13 @@ export const Newproject = () => {
       console.log("Hubo un error", error);
     }
   };
-  console.log(memberList, project)
   return (
     <>
-      <section className="vh-100">
-        <div className="container h-100">
-          <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="col-lg-12 col-xl-11">
-              <div className="card text-black" style={{ borderRadius: "25px" }}>
+      <section className="container-fluid vh-100 mt-5">
+        <div className="mb-4 h-100">
+          <div className="rounded d-flex justify-content-center align-items-center h-100">
+            <div className="col-md-6 col-sm-12 shadow-lg p-5 bg-light">
+              <div className="card text-black " style={{ borderRadius: "25px" }}>
                 <div className="card-body p-md-5">
                   <p className="h1 fw-bold mb-3 mx-1 mx-md-2 mt-1">
                     Nuevo Proyecto
@@ -119,9 +118,10 @@ export const Newproject = () => {
                         <div className="input-group date" id="datepicker">
                           <DatePicker
                             wrapperClassName="datePicker"
+                            dateFormat="utc"
                             selected={project.due_date}
                             onChange={(date) =>
-                              setproject({ ...project, due_date: date })
+                              setproject({ ...project, due_date: date})
                             }
                           />
                         </div>
@@ -176,11 +176,11 @@ export const Newproject = () => {
                             name="email"
                             value={member.email}
                             onChange={handleChangeMember}
-                            // onBlur = {()=>{
-                            //   setTimeout(()=>{
-                            //     setUsers([])
-                            //   },100);
-                            // }}
+                            onBlur = {()=>{
+                              setTimeout(()=>{
+                                setUsers([])
+                              },100);
+                            }}
                           />
                           {/* {users.email &&
                             users.email.map((users, i) => (
@@ -212,7 +212,7 @@ export const Newproject = () => {
                             <i className="fas fa-check"></i>
                           </button>
                         </div>
-                        {memberList.map((item, index) => (
+                        {project.members.map((item, index) => (
                           <div key={index} className="border-bottom w-100 mt-2">
                             <ul className="list-group list-group-flush vertical-align">
                               <li className="list-group-item d-flex justify-content-between">
@@ -232,7 +232,7 @@ export const Newproject = () => {
                     ) : (
                       ""
                     )}
-                    <div className="col-md-8">
+                    <div className="col-md-12">
                       <label className="form-label">Descripción</label>
                       <textarea
                         className="form-control"
@@ -250,9 +250,9 @@ export const Newproject = () => {
                     <div className="col-md-12">
                       <button
                         className="btn btn-secondary"
-                        type="submit"
+                        type="button"
                         onClick={() =>
-                          actions.handle_newProject(project, memberList)
+                          actions.handle_newProject(project)
                         }
                       >
                         <span>Guardar</span>
