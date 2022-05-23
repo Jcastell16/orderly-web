@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			URL_BASE: "http://127.0.0.1:3000",
 			token: localStorage.getItem("token") || "",
 			columnboard: [],
+      project: [],
 		},
 		actions: {
 			handle_register: async (register) => {
@@ -122,8 +123,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 						name: "Juan"
 					}]
 				})
-			}
+			},
 
+      handle_newProject: async (project) => {
+        let store = getStore();
+        try {
+          const response = await fetch(`${store.URL_BASE}/newproject`, {
+            method: "POST",
+            body: JSON.stringify(project),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${store.token}`,
+            },
+          });
+          if (response.ok) {
+            console.log("projecto y miembros fueron registrados");
+          } else {
+            console.log("ocurrio un error");
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
 		},
 	};
 };
