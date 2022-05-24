@@ -1,30 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Offcanvas } from "./offcanvas";
-import { AddCardTask } from "./addCardTask";
-
+import { Tasklabel } from "./taskLabel";
+import {Context} from "../../store/appContext"
+import { Tasklabeldos } from "./addTasklabel";
 
 export const Workspace = () => {
-    const [column, setColumn] = useState([]);
-    const Column = () => {
-        return <AddCardTask />
-    };
-    const handleAddColumn = event => {
-        setColumn(column.concat(<Column key={column.length} />));
-    };
+    const{store, actions}= useContext(Context)
+    const [newTask, setNewTask] = useState(false)
+    
     return (
         <>
-            <div className="d-flex mx-0">
-                <AddCardTask />
-                {column}
-                <div>
-                    <button type="button" className="btn btn-outline-dark border-0 my-4 mx-1" data-ripple-color="dark" onClick={handleAddColumn}>
-                        <i className="fas fa-plus me-2"></i>
-                        <label>Add Column</label>
-                    </button>
-                </div>
+            <div className="container-fluid mx-3 my-3">
+            
+                <button type="button" onClick={()=> setNewTask(!newTask)}>add Task</button>
+                {newTask && <Tasklabeldos/>}
+                
+               {store.tasks.length>0? store.tasks.map((task)=>(<Tasklabel key={task.id} task={task} />)):<h1>task</h1>}
+                
+                
+       
                 
             </div>
+
         </>
     );
 };
