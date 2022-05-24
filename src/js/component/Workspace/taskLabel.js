@@ -3,12 +3,11 @@ import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 
 export const Tasklabel = ({task}) => {
-    
     return (
         <>
-            <div className="card shadow-lg border border-light mb-3" style={{ "maxWidth": "18rem" }} >
+            <div className="card shadow-lg border border-white mb-3" style={{ "maxWidth": "18rem" }} >
                 <div className="card-header d-flex align-items-center justify-content-between bg-transparent border-0">
-                    <h5 className="card-title">{task.name}</h5>
+                    <h5 className="card-title">Title Task</h5>
                     <button type="button" className="btn btn-outline-dark border-0" data-bs-toggle="modal" data-bs-target="#modal-card"><i className="fas fa-pencil-alt"></i></button>
                 </div>
                 <div className="modal fade" id="modal-card" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabIndex="-1">
@@ -55,3 +54,9 @@ export const Tasklabel = ({task}) => {
         </>
     );
 };
+
+// return (
+    //     <>
+    //         <div className="card shadow-lg border border-light mb-3" style={{ "maxWidth": "18rem" }} >
+    //             <div className="card-header d-flex align-items-center justify-content-between bg-transparent border-0">
+    //                 <h5 className="card-title">{task.name}</h5>

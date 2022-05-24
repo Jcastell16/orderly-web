@@ -1,3 +1,13 @@
+.suggestion{
+    cursor: pointer;
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-left: 1px solid lightgray;
+}
+
+.suggestion:hover{
+    background-color: lightgray;
+}
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
