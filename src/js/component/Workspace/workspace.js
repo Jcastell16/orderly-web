@@ -24,7 +24,7 @@ export const Workspace = () => {
                     </div>
                     <div className="d-flex p-3 ">
                     {store.columnboard.map((item) => (
-                    <Columntask  key={item} item = {item}/>
+                    <Columntask  key={item.id} item = {item}/>
 					))}
                     </div>
 

@@ -4,7 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			URL_BASE: "http://127.0.0.1:3000",
 			token: localStorage.getItem("token") || "",
 			columnboard: [],
-      project: [],
+			project: [],
 		},
 		actions: {
 			handle_register: async (register) => {
@@ -46,11 +46,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("ocurrio un error")
 				}
 			},
-			getColumn: async () => {
+			getColumn: async (project_id) => {
 				let store = getStore();
+				let body = {
+					"project_id": project_id
+				}
 				try {
 					let response = await fetch(`${store.URL_BASE}/column`, {
 						method: "GET",
+						body: JSON.stringify(body),
 						headers: {
 							"Content-Type": "application/json",
 						}
@@ -73,6 +77,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					name: "Title...",
 					project_id: 1
 				};
+				console.log(project_id)
 				try {
 					let response = await fetch(`${store.URL_BASE}/column`, {
 						method: 'POST',
@@ -113,38 +118,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error try again later!!", error)
 				} s
 			},
-
-			prueba: () => {
-				let store = getStore()
-
-				setStore({
-					...store, task: [{
-						id: 1,
-						name: "Juan"
-					}]
-				})
-			},
-
-      handle_newProject: async (project) => {
-        let store = getStore();
-        try {
-          const response = await fetch(`${store.URL_BASE}/newproject`, {
-            method: "POST",
-            body: JSON.stringify(project),
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${store.token}`,
-            },
-          });
-          if (response.ok) {
-            console.log("projecto y miembros fueron registrados");
-          } else {
-            console.log("ocurrio un error");
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      }
+			handle_newProject: async () => {
+				let store = getStore();
+				try {
+					const response = await fetch(`${store.URL_BASE}/newproject`, {
+						method: "POST",
+						body: JSON.stringify(project),
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${store.token}`,
+						},
+					});
+					if (response.ok) {
+						console.log("projecto y miembros fueron registrados");
+					} else {
+						console.log("ocurrio un error");
+					}
+				} catch (error) {
+					console.log(error);
+				}
+			}
 		},
 	};
 };
