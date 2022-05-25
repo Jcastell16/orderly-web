@@ -32,14 +32,14 @@ export const Contact = () => (
                                 <div className="row">
                                     <div className="col-md-6 mt-3">
                                         <div className="form-group text-white font-weight-bold">
-                                            <h5 for="form_email">Email</h5>
+                                            <h5 htmlFor="form_email">Email</h5>
                                             <input id="form_email" type="email" name="email" className="form-control" placeholder="Please enter your email *" required="required" data-error="Valid email is required." />
                                             <div className="help-block with-errors"></div>
                                         </div>
                                     </div>
                                     <div className="col-md-6 mt-3">
                                         <div className="form-group text-white font-weight-bold">
-                                            <h5 for="form_phone">Phone</h5>
+                                            <h5 htmlFor="form_phone">Phone</h5>
                                             <input id="form_phone" type="tel" name="phone" className="form-control" placeholder="Please enter your phone" />
                                             <div className="help-block with-errors"></div>
                                         </div>
@@ -48,7 +48,7 @@ export const Contact = () => (
                                 <div className="row">
                                     <div className="col-md-12 mt-3">
                                         <div className="form-group text-white font-weight-bold">
-                                            <h5 for="form_message">Message</h5>
+                                            <h5 htmlFor="form_message">Message</h5>
                                             <textarea id="form_message" name="message" className="form-control" placeholder="Message for me *" rows="4" required data-error="Please,leave us a message."></textarea>
                                             <div className="help-block with-errors"></div>
                                         </div>

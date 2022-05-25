@@ -7,6 +7,7 @@ import { Context } from "../../store/appContext";
 export const Columntask = ({item}) => {
     const { store, actions } = useContext(Context);
 
+
     const DivItem = () => {
         return (
             <Tasklabel />
@@ -24,7 +25,8 @@ export const Columntask = ({item}) => {
                     </div>
                         <Tasklabel />
                         <div className="card card-col bg-light" data-col="1">
-                            <button type="button" className="btn btn-outline-dark border-0" data-ripple-color="dark" onClick={() => handleAddTask()}>
+                            <button type="button" className="btn btn-outline-dark border-0" data-ripple-color="dark" onClick={() => handleAddTask()
+                            }>
                                 <i className="fas fa-plus me-2"></i>
                                 <label>Add task</label>
                             </button>
