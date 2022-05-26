@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Offcanvas } from "./offcanvas";
 import { Tasklabel } from "./taskLabel";
+import {Context} from "../../store/appContext"
 import { Columntask } from "./columnTask";
-import { Context } from "../../store/appContext";
 
 
 export const Workspace = () => {
@@ -24,7 +24,7 @@ export const Workspace = () => {
                     </div>
                     <div className="d-flex p-3 ">
                     {store.columnboard.map((item) => (
-                    <Columntask  key={item} item = {item}/>
+                    <Columntask  key={item.id} item = {item}/>
 					))}
                     </div>
 

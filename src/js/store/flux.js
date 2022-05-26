@@ -1,8 +1,11 @@
+import { stringify } from "query-string";
+
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       URL_BASE: "http://127.0.0.1:3000",
       token: localStorage.getItem("token") || "",
+      tasks: [],
       columnboard: [],
       projects: [],
     },
@@ -26,6 +29,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
+
       handleLogin: async (login) => {
         let store = getStore();
         const response = await fetch(`${store.URL_BASE}/login`, {
@@ -46,11 +50,98 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("ocurrio un error");
         }
       },
-      getColumn: async () => {
+
+      handleTasks: async () => {
         let store = getStore();
+        try {
+          let response = await fetch(`${store.URL_BASE}/task`, {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${store.token}`,
+            },
+          });
+          if (response.ok) {
+            let data = await response.json();
+            setStore({
+              ...store,
+              tasks: data,
+            });
+          }
+        } catch (error) {
+          console.log("error");
+        }
+      },
+
+      newTask: async (id) => {
+        let store = getStore();
+        let actions = getActions();
+        let body = {
+          name: "title task",
+          project_id: 1,
+          columntask_id: id,
+        };
+        try {
+          let response = await fetch(`${store.URL_BASE}/task`, {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${store.token}`,
+            },
+            body: JSON.stringify(body),
+          });
+          if (response.ok) {
+            actions.handleTasks();
+          }
+        } catch (error) {
+          console.log("ocurrio un error", error);
+        }
+      },
+
+      handleUpdateTask: async (task, id) => {
+        let store = getStore();
+        let actions = getActions();
+        let body = {
+          name: task.title,
+          description: task.content,
+          project_id: "",
+          columntask_id: id,
+        };
+        console.log(body);
+      },
+
+      deleteTask: async (id) => {
+        let store = getStore();
+        let actions = getActions();
+        let body = {
+          id: id,
+        };
+        try {
+          let response = await fetch(`${store.URL_BASE}/task`, {
+            method: "DELETE",
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${store.token}`,
+            },
+            body: JSON.stringify(body),
+          });
+          if (response.ok) {
+            actions.handleTasks();
+          }
+        } catch (error) {
+          console.log("ocurrio un error", error);
+        }
+      },
+
+      getColumn: async (project_id) => {
+        let store = getStore();
+        let body = {
+          project_id: project_id,
+        };
         try {
           let response = await fetch(`${store.URL_BASE}/column`, {
             method: "GET",
+            body: JSON.stringify(body),
             headers: {
               "Content-Type": "application/json",
             },
@@ -73,6 +164,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           name: "Title...",
           project_id: 1,
         };
+
         try {
           let response = await fetch(`${store.URL_BASE}/column`, {
             method: "POST",
@@ -113,26 +205,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.log("Error try again later!!", error);
         }
-        s;
       },
-
-      prueba: () => {
+      handle_newProject: async () => {
         let store = getStore();
-
-        setStore({
-          ...store,
-          task: [
-            {
-              id: 1,
-              name: "Juan",
-            },
-          ],
-        });
-      },
-
-      handle_newProject: async (project) => {
-        let store = getStore();
-        let actions = getActions();
         try {
           const response = await fetch(`${store.URL_BASE}/newproject`, {
             method: "POST",
@@ -172,7 +247,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.log("Hubo un error", error);
         }
-      }
+      },
     },
   };
 };
