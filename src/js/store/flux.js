@@ -139,11 +139,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			getColumn: async () => {
+			
+			getColumn: async (project_id) => {
 				let store = getStore();
+				let body = {
+					"project_id": project_id
+				}
 				try {
 					let response = await fetch(`${store.URL_BASE}/column`, {
 						method: "GET",
+						body: JSON.stringify(body),
 						headers: {
 							"Content-Type": "application/json",
 						}
@@ -166,6 +171,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					name: "Title...",
 					project_id: 1
 				};
+				
 				try {
 					let response = await fetch(`${store.URL_BASE}/column`, {
 						method: 'POST',
@@ -206,19 +212,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error try again later!!", error)
 				} 
 			},
-
-			prueba: () => {
-				let store = getStore()
-
-				setStore({
-					...store, task: [{
-						id: 1,
-						name: "Juan"
-					}]
-				})
-			},
-
-			handle_newProject: async (project) => {
+			handle_newProject: async () => {
 				let store = getStore();
 				try {
 					const response = await fetch(`${store.URL_BASE}/newproject`, {

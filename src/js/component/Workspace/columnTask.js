@@ -7,7 +7,7 @@ import { Context } from "../../store/appContext";
 
 export const Columntask = ({item}) => {
     const { store, actions } = useContext(Context);
-    console.log(item)
+    
     
     const DivItem = () => {
         return (
