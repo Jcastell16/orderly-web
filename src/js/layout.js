@@ -11,6 +11,7 @@ import { Services } from "./Home/services";
 import { Contact } from "./Home/contact";
 import { Workspace } from "./component/Workspace/workspace";
 import { Offcanvas } from "./component/Workspace/offcanvas";
+import Dashboard from "./component/Workspace/dashboard";
 
 //create your first component
 const Layout = () => {
@@ -24,13 +25,14 @@ const Layout = () => {
 				<ScrollToTop>				
 					<Routes>
 						<Route path="/" element={<Home />}/>
-						<Route path="/workspace" element={<Workspace />}/>
+						<Route path="/workspace/:id" element={<Workspace />}/>
 						<Route path="/about" element={<About />}/>
 						<Route path="/services" element={<Services />}/>
 						<Route path="/contact" element={<Contact />}/>
 						<Route path="/newproject" element={<Newproject />}/>
 						<Route path="/register" element={<Register />}/>
 						<Route path="/login" element={<Login />}/>
+						<Route path="/dashboard" element={<Dashboard />}/>
 						<Route path="*" element={<h1>Not found!</h1>}/>
 					</Routes>
 				</ScrollToTop>
