@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Offcanvas } from "./offcanvas";
 import { Tasklabel } from "./taskLabel";
+import {Context} from "../../store/appContext"
 import { Columntask } from "./columnTask";
-import { Context } from "../../store/appContext";
 
 
 export const Workspace = () => {
