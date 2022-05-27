@@ -27,7 +27,7 @@ export const Columntask = ({item}) => {
                     {store.tasks.length>0? store.tasks.map((task)=>(<Tasklabel key={task.id} task={task} item={item} />)):<h1>add task</h1>}
                     
                         <div className="card card-col bg-light" data-col="1">
-                            <button type="button" className="btn btn-outline-dark border-0" data-ripple-color="dark" onClick={()=> actions.newTask(item.id)}>
+                            <button type="button" className="btn btn-outline-dark border-0" data-ripple-color="dark" onClick={()=> actions.newTask(item.id, item.project_id)}>
                                 <i className="fas fa-plus me-2"></i>
                                 <label>Add task</label>
                             </button>
