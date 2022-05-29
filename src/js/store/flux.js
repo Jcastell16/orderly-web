@@ -99,25 +99,20 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      handleUpdateTask: async (task, id, projectId,taskId) => {
+      handleUpdateTask: async (task) => {
         let store = getStore();
         let actions = getActions();
-        let body = {
-          name: task.title,
-          description: task.content,
-          project_id: projectId,
-          columntask_id: id,
-          id: taskId
-        };
+        let body = task;
         try{
           let response = await fetch(`${store.URL_BASE}/task`, {
-            method: "PATCH",
+            method: "PUT",
             headers: {
               "Content-type": "application/json",
               Authorization: `Bearer ${store.token}`,
             },
             body: JSON.stringify(body)
           })
+          console.log(body)
           if (response.ok){
            actions.handleTasks()
           }
