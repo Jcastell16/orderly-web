@@ -8,6 +8,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       tasks: [],
       columnboard: [],
       projects: [],
+      profiles: [],
+      tasksMember: [],
+      profileUser: [],
+      membersProjects: []
     },
     actions: {
       handle_register: async (register) => {
@@ -206,7 +210,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error try again later!!", error);
         }
       },
-      handle_newProject: async () => {
+      handle_newProject: async (project) => {
         let store = getStore();
         try {
           const response = await fetch(`${store.URL_BASE}/newproject`, {
@@ -243,10 +247,139 @@ const getState = ({ getStore, getActions, setStore }) => {
               ...store,
               projects: data,
             });
+          } else {
+            console.log("No es miembro de un proyecto");
           }
         } catch (error) {
           console.log("Hubo un error", error);
         }
+      },
+
+      getProfiles: async () => {
+        let store = getStore();
+        try {
+          let response = await fetch(`${store.URL_BASE}/profiles`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${store.token}`,
+            },
+          });
+          if (response.ok) {
+            let data = await response.json();
+            setStore({
+              ...store,
+              profiles: data,
+            });
+          } else {
+            console.log("No tiene colaboradores de proyecto");
+          }
+        } catch (error) {
+          console.log("Hubo un error", error);
+        }
+      },
+
+      getTasks: async () => {
+        let store = getStore();
+        try {
+          let response = await fetch(`${store.URL_BASE}/membertask`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${store.token}`,
+            },
+          });
+          if (response.ok) {
+            let data = await response.json();
+            setStore({
+              ...store,
+              tasksMember: data,
+            });
+          } else {
+            console.log("No tiene tareas asignadas");
+          }
+        } catch (error) {
+          console.log("Hubo un error", error);
+        }
+      },
+
+      getProfile: async () => {
+        let store = getStore();
+        try {
+          let response = await fetch(`${store.URL_BASE}/profile`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${store.token}`,
+            },
+          });
+          if (response.ok) {
+            let data = await response.json();
+            setStore({
+              ...store,
+              profileUser: data,
+            });
+          } else {
+            console.log("Hubo un error");
+          }
+        } catch (error) {
+          console.log("Hubo un error", error);
+        }
+      },
+
+      editProfile: async (profile) =>{
+        let store = getStore();
+        try {
+          let response = await fetch(`${store.URL_BASE}/profile`, {
+            method: "PUT",
+            body: JSON.stringify(profile),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${store.token}`,
+            },
+          });
+          if (response.ok) {
+            console.log("Se guardaron los cambios en el perfil del usuario");
+          } else {
+            console.log("Hubo un error");
+          }
+        } catch (error) {
+          console.log("Hubo un error", error);
+        }
+      },
+
+      getMemberProjects: async (id) =>{
+        let store = getStore();
+        try {
+          let response = await fetch(`${store.URL_BASE}/projectmember/${id}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${store.token}`,
+            },
+          });
+          if (response.ok) {
+            let data = await response.json();
+            setStore({
+              ...store,
+              membersProjects: data,
+            });
+            console.log("Se obtuvieron los miembros del proyecto");
+          } else {
+            console.log("Hubo un error");
+          }
+        } catch (error) {
+          console.log("Hubo un error", error);
+        }
+      },
+
+      Logout: () => {
+        let store = getStore();
+        setStore({
+          ...store,
+          token: "",
+        });
+        localStorage.removeItem("token");
       },
     },
   };

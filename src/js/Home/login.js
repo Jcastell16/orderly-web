@@ -38,7 +38,7 @@ const Login = () => {
                                                 <Link to="">Forgot password?</Link>
                                             </div>
                                         </div>
-                                        <Link className="btn btn-primary btn-xl mb-2" to="/:newproject/:id" type="submit" onClick={() => actions.handleLogin(login)} >Login</Link>
+                                        <Link className="btn btn-primary btn-xl mb-2" to="/dashboard" type="submit" onClick={() => actions.handleLogin(login)} >Login</Link>
                                         <p >Not a member?
                                             <Link className="mx-2" to="">Register</Link>
                                         </p>
