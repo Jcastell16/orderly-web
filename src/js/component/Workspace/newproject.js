@@ -37,7 +37,7 @@ export const Newproject = () => {
 
   const updateMember = () => {
     if (users.email.length > 0) {
-      if (member.email.trim() != "" && member.rol.trim() != "") {
+      if (member.email.trim() != "") {
         let repeatMember = project.members.filter(
           (item, index) => item.email == member.email
         );
@@ -172,11 +172,6 @@ export const Newproject = () => {
                                 name="email"
                                 value={member.email}
                                 onChange={handleChangeMember}
-                                onBlur={() => {
-                                  setTimeout(() => {
-                                    setUsers([])
-                                  }, 100);
-                                }}
                               />
                             </div>
                             <div className="d-flex flex-row align-items-center mb-4">
@@ -240,7 +235,7 @@ export const Newproject = () => {
                         <div className="justify-content-center mx-4 mt-3 mb-lg-4">
                           <Link
                             className="btn btn-primary btn-xl"
-                            to="/workspace"
+                            to="/dashboard"
                             type="button"
                             onClick={() =>
                               actions.handle_newProject(project)
