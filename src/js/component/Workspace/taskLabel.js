@@ -37,7 +37,6 @@ export const Tasklabel = ({task}) => {
 
                     <h5 className="card-title">{task.name}</h5>
                     <div>
-                        {/* <button type="button" className="btn btn-outline-dark border-0" data-bs-toggle="modal" data-bs-target="#modal-card"><i className="fas fa-pencil-alt" onClick={()=>handleUpdateTask(task.id)} ></i></button> */}
                         <Button variant="outline-dark" onClick={handleShow}>
                         <i className="fas fa-pencil-alt"></i>
                         </Button>
@@ -67,6 +66,7 @@ export const Tasklabel = ({task}) => {
                     <br/>
                     <h6>Members :</h6>
                         <select className="form-select" aria-label="Default select example" id="select-type"></select>
+                        
                     <br/>
                     <h6>Selection priority :</h6>
                         <select className="form-select" aria-label="Default select example" id="select-type" name="priority" value={updateTask.priority} onChange={(event)=>setUpdateTask({...updateTask, [event.target.name]: event.target.value})}>
@@ -77,7 +77,7 @@ export const Tasklabel = ({task}) => {
                         </select>
                     <br/>
                     <h6>Due date</h6>
-                    <div className="input-group date" id="datepicker">
+                    {/* <div className="input-group date" id="datepicker">
                               <DatePicker
                                 className="form-control form-outline flex-fill mb-0"
                                 wrapperClassName="datePicker"
@@ -87,7 +87,7 @@ export const Tasklabel = ({task}) => {
                                   setUpdateTask({ ...updateTask, due_date: date })
                                 }
                               />
-                    </div>
+                    </div> */}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -96,9 +96,6 @@ export const Tasklabel = ({task}) => {
                     <Button variant="success" onClick={save}>
                         Save Changes
                     </Button>
-                    {/* <Button variant="primary" onClick={()=>actions.handleUpdateTask(updateTask)}>
-                        Prueba
-                    </Button> */}
                 </Modal.Footer>
             </Modal>
         </>
