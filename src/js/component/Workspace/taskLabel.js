@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import { Context } from "../../store/appContext";
-import { PruebaModal } from "./pruebaModal";
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import "react-datepicker/dist/react-datepicker.css";
