@@ -24,10 +24,10 @@ export const Columntask = ({item}) => {
                     <h5 type="text" className="text-center title-col form-control-lg mb-2 border-0">{item.name}</h5>
                     <button type="button" className="btn-close text-reset fs-6" onClick={() => actions.handleDeleteColumn(item.id)}></button>
                     </div>
-                    {store.tasks.length>0? store.tasks.map((task)=>(<Tasklabel key={task.id} task={task} item={item} />)):<h1>add task</h1>}
+                    {store.tasks.length>0? store.tasks.map((task)=>(<Tasklabel key={task.id} task={task}/>)):<h1>add task</h1>}
                     
                         <div className="card card-col bg-light" data-col="1">
-                            <button type="button" className="btn btn-outline-dark border-0" data-ripple-color="dark" onClick={()=> actions.newTask(item.id)}>
+                            <button type="button" className="btn btn-outline-dark border-0" data-ripple-color="dark" onClick={()=> actions.newTask(item.id, item.project_id)}>
                                 <i className="fas fa-plus me-2"></i>
                                 <label>Add task</label>
                             </button>

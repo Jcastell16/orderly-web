@@ -4,7 +4,7 @@ import { Context } from "../store/appContext"
 import { Footer } from "./footer"
 
 const Login = () => {
-    const { actions } = useContext(Context)
+    const { store,actions } = useContext(Context)
     const [login, setLogin] = useState({
         email: "",
         password: ""

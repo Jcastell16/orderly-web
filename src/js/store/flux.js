@@ -77,12 +77,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      newTask: async (id) => {
+      newTask: async (id, projectId) => {
         let store = getStore();
         let actions = getActions();
         let body = {
           name: "title task",
-          project_id: 1,
+          description:"task content",
+          project_id: projectId,
           columntask_id: id,
         };
         try {
@@ -102,16 +103,26 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      handleUpdateTask: async (task, id) => {
+      handleUpdateTask: async (task) => {
         let store = getStore();
         let actions = getActions();
-        let body = {
-          name: task.title,
-          description: task.content,
-          project_id: "",
-          columntask_id: id,
-        };
-        console.log(body);
+        let body = task;
+        try{
+          let response = await fetch(`${store.URL_BASE}/task`, {
+            method: "PUT",
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${store.token}`,
+            },
+            body: JSON.stringify(body)
+          })
+          if (response.ok){
+           actions.handleTasks()
+          }
+        }
+        catch(error){
+          console.log("ocurrio un error",error)
+        }
       },
 
       deleteTask: async (id) => {
@@ -137,15 +148,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      getColumn: async (project_id) => {
+      getColumn: async () => {
         let store = getStore();
         let body = {
-          project_id: project_id,
+          project_id: 1,
         };
         try {
-          let response = await fetch(`${store.URL_BASE}/column`, {
+          let response = await fetch(`${store.URL_BASE}/column/1`, {
             method: "GET",
-            body: JSON.stringify(body),
+            // body: JSON.stringify(body),
             headers: {
               "Content-Type": "application/json",
             },
@@ -170,7 +181,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
 
         try {
-          let response = await fetch(`${store.URL_BASE}/column`, {
+          let response = await fetch(`${store.URL_BASE}/column/1`, {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
