@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { Offcanvas } from "./offcanvas";
 import { Tasklabel } from "./taskLabel";
 import {Context} from "../../store/appContext"
@@ -8,7 +8,11 @@ import { Columntask } from "./columnTask";
 
 export const Workspace = () => {
     const { actions, store } = useContext(Context);
-
+    let params = useParams()
+	let { id } = params
+    useEffect(() => {
+        actions.getColumn(id);
+      }, []);
     return (
         <>
             <div className="main" id="main-0">
@@ -19,7 +23,7 @@ export const Workspace = () => {
                     </div>
                     <div className="my-2">
                         <span className="btn-icon">
-                            <button className="btn btn-primary btn-icon mx-3" onClick={() => actions.handleNewColumn()}><i className="fas fa-plus icon-btn"></i>  Add Column</button>
+                            <button className="btn btn-primary btn-icon mx-3" onClick={() => actions.handleNewColumn(id)}><i className="fas fa-plus icon-btn"></i>  Add Column</button>
                         </span>
                     </div>
                     <div className="d-flex p-3 ">
@@ -27,7 +31,6 @@ export const Workspace = () => {
                     <Columntask  key={item.id} item = {item}/>
 					))}
                     </div>
-
                 </div>
             </div>
 

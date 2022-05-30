@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       URL_BASE: "http://127.0.0.1:3000",
       token: localStorage.getItem("token") || "",
       tasks: [],
+      modalTask: [],
       columnboard: [],
       projects: [],
     },
@@ -51,6 +52,72 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      // handleTasks: async (id) => {
+      //   let store = getStore();
+      //   try {
+      //     let response = await fetch(`${store.URL_BASE}/task/${id}`, {
+      //       method: "GET",
+      //       headers: {
+      //         "Content-type": "application/json",
+      //       },
+      //     });
+      //     if (response.ok) {
+      //       let data = await response.json();
+      //       setStore({
+      //         ...store,
+      //         tasks: data,
+      //       });
+      //     }
+      //   } catch (error) {
+      //     console.log("error");
+      //   }
+      // },
+
+      // newTask: async (id, project_id) => {
+      //   let store = getStore();
+      //   let actions = getActions();
+      //   let body = {
+      //     name: "title task",
+      //     project_id: project_id,
+      //     columntask_id: id,
+      //   };
+      //   try {
+      //     let response = await fetch(`${store.URL_BASE}/task`, {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-type": "application/json",
+      //         Authorization: `Bearer ${store.token}`,
+      //       },
+      //       body: JSON.stringify(body),
+      //     });
+      //     if (response.ok) {
+      //       actions.handleTasks(id);
+      //     }
+      //   } catch (error) {
+      //     console.log("ocurrio un error", error);
+      //   }
+      // },
+      handleModalTasks: async (id) => {
+        let store = getStore();
+        try {
+          let response = await fetch(`${store.URL_BASE}/task/${id}`, {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+            },
+          });
+          if (response.ok) {
+            let data = await response.json();
+            setStore({
+              ...store,
+              modalTask: data,
+            });
+          }
+        } catch (error) {
+          console.log("error");
+        }
+      },
+
       handleTasks: async () => {
         let store = getStore();
         try {
@@ -73,12 +140,12 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      newTask: async (id) => {
+      newTask: async (id, project_id) => {
         let store = getStore();
         let actions = getActions();
         let body = {
-          name: "title task",
-          project_id: 1,
+          name: "",
+          project_id: project_id,
           columntask_id: id,
         };
         try {
@@ -98,18 +165,36 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      handleUpdateTask: async (task, id) => {
+      handleUpdateTask: async (id, title, task_id, content, priority) => {
         let store = getStore();
         let actions = getActions();
         let body = {
-          name: task.title,
-          description: task.content,
-          project_id: "",
+          id: task_id,
+          name: title,
+          description: content,
           columntask_id: id,
+          priority: priority
         };
-        console.log(body);
+        try {
+          let response = await fetch(`${store.URL_BASE}/task`, {
+            method: "PATCH",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          if (response.ok) {
+            actions.handleTasks();
+          } else {
+            window.alert(
+              "This Favorite already exists in your list, enter a different one!"
+            );
+          }
+          console.log(id, title, task_id)
+      } catch {
+        console.log(error);
+      }
       },
-
       deleteTask: async (id) => {
         let store = getStore();
         let actions = getActions();
@@ -132,16 +217,12 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("ocurrio un error", error);
         }
       },
-
       getColumn: async (project_id) => {
         let store = getStore();
-        let body = {
-          project_id: project_id,
-        };
+        let actions = getActions();
         try {
-          let response = await fetch(`${store.URL_BASE}/column`, {
+          let response = await fetch(`${store.URL_BASE}/column/${project_id}`, {
             method: "GET",
-            body: JSON.stringify(body),
             headers: {
               "Content-Type": "application/json",
             },
@@ -157,14 +238,13 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error try again later!!", error);
         }
       },
-      handleNewColumn: async () => {
+      handleNewColumn: async (project_id) => {
         let store = getStore();
         let actions = getActions();
         let body = {
-          name: "Title...",
-          project_id: 1,
+          name: "",
+          project_id: project_id,
         };
-
         try {
           let response = await fetch(`${store.URL_BASE}/column`, {
             method: "POST",
@@ -174,7 +254,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
           });
           if (response.ok) {
-            actions.getColumn();
+            actions.getColumn(project_id);
+            
           } else {
             window.alert(
               "This Favorite already exists in your list, enter a different one!"
@@ -184,12 +265,37 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error try again later!!", error);
         }
       },
-      handleDeleteColumn: async (id) => {
+      handleUpdateColumn: async (name, column_id, project_id) => {
         let store = getStore();
         let actions = getActions();
-        console.log(id);
         let body = {
-          id: id,
+          name: name,
+          column_id: column_id,
+        };
+        try {
+            let response = await fetch(`${store.URL_BASE}/column`, {
+              method: "PATCH",
+              body: JSON.stringify(body),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            if (response.ok) {
+              actions.getColumn(project_id, column_id);
+            } else {
+              window.alert(
+                "This Favorite already exists in your list, enter a different one!"
+              );
+            }
+        } catch {
+          console.log(error);
+        }
+      },
+      handleDeleteColumn: async (column_id, project_id) => {
+        let store = getStore();
+        let actions = getActions();
+        let body = {
+          column_id: column_id,
         };
         try {
           let response = await fetch(`${store.URL_BASE}/column`, {
@@ -200,14 +306,14 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
           });
           if (response.ok) {
-            actions.getColumn();
+            actions.getColumn(project_id);
           }
         } catch (error) {
           console.log("Error try again later!!", error);
         }
       },
-      handle_newProject: async () => {
-        let store = getStore();
+      handle_newProject: async (project) => {
+        let store = getStore(id);
         try {
           const response = await fetch(`${store.URL_BASE}/newproject`, {
             method: "POST",
@@ -226,7 +332,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
-
       getProjects: async () => {
         let store = getStore();
         try {
@@ -243,6 +348,8 @@ const getState = ({ getStore, getActions, setStore }) => {
               ...store,
               projects: data,
             });
+          }else{
+            console.log("No es miembro de un proyecto")
           }
         } catch (error) {
           console.log("Hubo un error", error);
