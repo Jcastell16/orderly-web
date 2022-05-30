@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Offcanvas } from "./offcanvas";
-import { Tasklabel } from "./taskLabel";
+import  Navbar from "./navbar";
 import {Context} from "../../store/appContext"
 import { Columntask } from "./columnTask";
 
@@ -18,12 +17,11 @@ export const Workspace = () => {
             <div className="main" id="main-0">
                 <div className="content">
                     <div>
-                    <Offcanvas />
-                    <h1 className="text-center">To Do List</h1>
+                    <Navbar />
                     </div>
-                    <div className="my-2">
+                    <div className="mb-2 border-top border-bottom p-2 bg-dark">
                         <span className="btn-icon">
-                            <button className="btn btn-primary btn-icon mx-3" onClick={() => actions.handleNewColumn(id)}><i className="fas fa-plus icon-btn"></i>  Add Column</button>
+                            <button className="btn btn-primary btn-icon mx-2" onClick={() => actions.handleNewColumn(id)}><i className="fas fa-plus icon-btn"></i>  Add Column</button>
                         </span>
                     </div>
                     <div className="d-flex p-3 ">
