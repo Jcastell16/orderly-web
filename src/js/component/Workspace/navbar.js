@@ -120,10 +120,8 @@ const Navbar = () => {
         </div>
       </div>
 
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-lg ">
         <div className="container-fluid">
-          <i className="fas fa-clipboard fa-2x p-2"></i>
-          <h4>Orderly</h4>
           <button
             className="navbar-toggler"
             type="button"
@@ -136,7 +134,7 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav mb-2 mb-lg-0">
               <li className="nav-item">
                 <a className="nav-link active" aria-current="page" href="#">
                   <i className="fas fa-home"></i> Home
@@ -181,10 +179,14 @@ const Navbar = () => {
                 </ul>
               </li>
             </ul>
+            <div className="d-flex mx-auto">
+              <i className="fas fa-clipboard fa-2x p-2"></i>
+              <h4 className="p-2">Orderly</h4>
+            </div>
             <form className="d-flex">
               <div className="p-1">
                 <Link
-                  className="btn btn-primary"
+                  className="btn btn-primary btn-md rounded-pill shadow-lg"
                   to="/newproject"
                   type="submit"
                 >
@@ -193,7 +195,7 @@ const Navbar = () => {
               </div>
               <div className="p-1">
                 <Link
-                  className="btn btn-primary"
+                  className="btn btn-primary btn-md rounded-pill shadow-lg"
                   to="/"
                   type="submit"
                   onClick={() => actions.Logout()}

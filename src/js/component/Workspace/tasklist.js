@@ -6,10 +6,10 @@ const Taslist = ({task}) => {
 
   return (
     <>
-        <li className="list-group-item">{task.name}
-        {task.priority == "Alta" ? (<span className="badge bg-danger">{task.priority}</span>): ""}
-        {task.priority == "Media" ? (<span className="badge rounded-pill bg-warning text-dark">{task.priority}</span>): ""}
-        {task.priority == "Baja" ? (<span className="badge rounded-pill bg-info text-dark">{task.priority}</span>): ""}
+        <li className="list-group-item bg-light">{task.name}
+        {task.priority == "Alta" ? (<label className="badge bg-danger mx-3">{task.priority}</label>): ""}
+        {task.priority == "Media" ? (<label className="badge rounded-pill bg-warning text-dark mx-3">{task.priority}</label>): ""}
+        {task.priority == "Baja" ? (<label className="badge rounded-pill bg-info text-dark mx-3">{task.priority}</label>): ""}
         </li>
     </>
   );

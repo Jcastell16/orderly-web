@@ -55,26 +55,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("ocurrio un error");
         }
       },
-      handleModalTasks: async (id) => {
-        let store = getStore();
-        try {
-          let response = await fetch(`${store.URL_BASE}/task/${id}`, {
-            method: "GET",
-            headers: {
-              "Content-type": "application/json",
-            },
-          });
-          if (response.ok) {
-            let data = await response.json();
-            setStore({
-              ...store,
-              modalTask: data,
-            });
-          }
-        } catch (error) {
-          console.log("error");
-        }
-      },
 
       handleTasks: async () => {
         let store = getStore();
@@ -103,7 +83,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         let actions = getActions();
         let body = {
           name: "title task",
-          description:"task content",
+          description: "task content",
           project_id: projectId,
           columntask_id: id,
         };
@@ -128,7 +108,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         let store = getStore();
         let actions = getActions();
         let body = task;
-        try{
+        try {
           let response = await fetch(`${store.URL_BASE}/task`, {
             method: "PUT",
             headers: {
@@ -137,12 +117,12 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             body: JSON.stringify(body)
           })
-          if (response.ok){
-           actions.handleTasks()
+          if (response.ok) {
+            actions.handleTasks()
           }
         }
-        catch(error){
-          console.log("ocurrio un error",error)
+        catch (error) {
+          console.log("ocurrio un error", error)
         }
       },
       deleteTask: async (id) => {
@@ -196,7 +176,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           project_id: project_id,
         };
         try {
-          let response = await fetch(`${store.URL_BASE}/column/1`, {
+          let response = await fetch(`${store.URL_BASE}/column`, {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
@@ -205,7 +185,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
           if (response.ok) {
             actions.getColumn(project_id);
-            
+
           } else {
             window.alert(
               "This Favorite already exists in your list, enter a different one!"
@@ -220,32 +200,28 @@ const getState = ({ getStore, getActions, setStore }) => {
         let actions = getActions();
         let body = {
           name: name,
-          column_id: column_id,
+          id: column_id,
         };
         try {
-            let response = await fetch(`${store.URL_BASE}/column`, {
-              method: "PATCH",
-              body: JSON.stringify(body),
-              headers: {
-                "Content-Type": "application/json",
-              },
-            });
-            if (response.ok) {
-              actions.getColumn(project_id, column_id);
-            } else {
-              window.alert(
-                "This Favorite already exists in your list, enter a different one!"
-              );
-            }
+          let response = await fetch(`${store.URL_BASE}/column`, {
+            method: "PATCH",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          if (response.ok) {
+            actions.getColumn(project_id);
+          } 
         } catch {
           console.log(error);
         }
       },
-      handleDeleteColumn: async (column_id, project_id) => {
+      handleDeleteColumn: async (id, project_id) => {
         let store = getStore();
         let actions = getActions();
         let body = {
-          column_id: column_id,
+          id: id,
         };
         try {
           let response = await fetch(`${store.URL_BASE}/column`, {
@@ -378,7 +354,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      editProfile: async (profile) =>{
+      editProfile: async (profile) => {
         let store = getStore();
         try {
           let response = await fetch(`${store.URL_BASE}/profile`, {
@@ -399,7 +375,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      getMemberProjects: async (id) =>{
+      getMemberProjects: async (id) => {
         let store = getStore();
         try {
           let response = await fetch(`${store.URL_BASE}/projectmember/${id}`, {
