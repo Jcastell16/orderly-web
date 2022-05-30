@@ -7,7 +7,6 @@ import Navbar from "./navbar";
 
 const Dashboard = () => {
   const { store, actions } = useContext(Context);
-
   useEffect(() => {
     actions.getProjects();
     actions.getProfiles();

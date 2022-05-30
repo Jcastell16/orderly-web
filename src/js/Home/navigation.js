@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/home.css";
+import "../../styles/demo.css";
 import orderlynav from "../../img/orderly-nav.png";
 
 export const Navigation = () => (
@@ -11,12 +12,11 @@ export const Navigation = () => (
                 <button className="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button>
                 <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav ms-auto my-2 my-lg-0 align-items-center justify-content-center text-center">
-                        <li className="nav-item"><Link className="nav-link" to="#about">About</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="#services">Services</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="#portfolio">Portfolio</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="#contact">Contact</Link></li>
-                        <li className="nav-item"><Link className="btn btn-primary btn-sm rounded-pill me-2" to="/login">Login</Link></li>
-                        <li className="nav-item"><Link className="btn btn-primary btn-sm rounded-pill" to="/register">Register</Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="#about"><h5><strong>Nosotros</strong></h5></Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="#services"><h5><strong>Servicios</strong></h5></Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="#contact"><h5><strong>Contactos</strong></h5></Link></li>
+                        <li className="nav-item"><Link className="btn btn-primary btn-md rounded-pill shadow-lg mx-2 my-2" to="/login">Ingresar</Link></li>
+                        <li className="nav-item"><Link className="btn btn-primary btn-md rounded-pill shadow-lg mx-2 my-2" to="/register">Registrar</Link></li>
                     </ul>
                 </div>
             </div>

@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button'
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 
-export const Tasklabel = ({task}) => {
+export const Tasklabel = ({ task }) => {
     const [updateTask, setUpdateTask] = useState({
         name: task.name,
         description: task.description,
@@ -24,7 +24,7 @@ export const Tasklabel = ({task}) => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const save =()=>{
+    const save = () => {
         handleClose();
         actions.handleUpdateTask(updateTask);
     }
@@ -38,11 +38,11 @@ export const Tasklabel = ({task}) => {
                     <h5 className="card-title">{task.name}</h5>
                     <div>
                         <Button variant="outline-dark" onClick={handleShow}>
-                        <i className="fas fa-pencil-alt"></i>
+                            <i className="fas fa-pencil-alt"></i>
                         </Button>
                         <button type="button" className="btn-close text-reset fs-6 ms-2" onClick={() => actions.deleteTask(task.id)}></button>
                     </div>
-                   
+
                 </div>
 
                 <div className="card-body">
@@ -57,36 +57,36 @@ export const Tasklabel = ({task}) => {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                <input name="name" onChange={(event) => setUpdateTask({ ...updateTask, [event.target.name]: event.target.value })} placeholder={updateTask.name}></input>
+                    <input name="name" onChange={(event) => setUpdateTask({ ...updateTask, [event.target.name]: event.target.value })} placeholder={updateTask.name}></input>
                 </Modal.Header>
                 <Modal.Body>
                     <h6>Description :</h6>
-                        <input name="description" onChange={(event) => setUpdateTask({ ...updateTask, [event.target.name]: event.target.value })} placeholder="content task"></input>
-                    <br/>
-                    <br/>
+                    <input name="description" onChange={(event) => setUpdateTask({ ...updateTask, [event.target.name]: event.target.value })} placeholder="content task"></input>
+                    <br />
+                    <br />
                     <h6>Members :</h6>
-                        <select className="form-select" aria-label="Default select example" id="select-type"></select>
-                        
-                    <br/>
+                    <select className="form-select" aria-label="Default select example" id="select-type"></select>
+
+                    <br />
                     <h6>Selection priority :</h6>
-                        <select className="form-select" aria-label="Default select example" id="select-type" name="priority" value={updateTask.priority} onChange={(event)=>setUpdateTask({...updateTask, [event.target.name]: event.target.value})}>
-                            <option defaultValue></option>
-                            <option value="Alta"> Alta </option>
-                            <option value="Media"> Media </option>
-                            <option value="Baja"> Baja </option>
-                        </select>
-                    <br/>
+                    <select className="form-select" aria-label="Default select example" id="select-type" name="priority" value={updateTask.priority} onChange={(event) => setUpdateTask({ ...updateTask, [event.target.name]: event.target.value })}>
+                        <option defaultValue></option>
+                        <option value="Alta"> Alta </option>
+                        <option value="Media"> Media </option>
+                        <option value="Baja"> Baja </option>
+                    </select>
+                    <br />
                     <h6>Due date</h6>
                     {/* <div className="input-group date" id="datepicker">
-                              <DatePicker
+                            <DatePicker
                                 className="form-control form-outline flex-fill mb-0"
                                 wrapperClassName="datePicker"
                                 dateFormat='dd-MM-yyyy'
                                 selected={updateTask.due_date}
                                 onChange={(date) =>
-                                  setUpdateTask({ ...updateTask, due_date: date })
+                                setUpdateTask({ ...updateTask, due_date: date })
                                 }
-                              />
+                            />
                     </div> */}
                 </Modal.Body>
                 <Modal.Footer>
