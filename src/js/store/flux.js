@@ -9,6 +9,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       modalTask: [],
       columnboard: [],
       projects: [],
+      profiles: [],
+      tasksMember: [],
+      profileUser: [],
+      membersProjects: []
     },
     actions: {
       handle_register: async (register) => {
@@ -51,52 +55,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("ocurrio un error");
         }
       },
-
-      // handleTasks: async (id) => {
-      //   let store = getStore();
-      //   try {
-      //     let response = await fetch(`${store.URL_BASE}/task/${id}`, {
-      //       method: "GET",
-      //       headers: {
-      //         "Content-type": "application/json",
-      //       },
-      //     });
-      //     if (response.ok) {
-      //       let data = await response.json();
-      //       setStore({
-      //         ...store,
-      //         tasks: data,
-      //       });
-      //     }
-      //   } catch (error) {
-      //     console.log("error");
-      //   }
-      // },
-
-      // newTask: async (id, project_id) => {
-      //   let store = getStore();
-      //   let actions = getActions();
-      //   let body = {
-      //     name: "title task",
-      //     project_id: project_id,
-      //     columntask_id: id,
-      //   };
-      //   try {
-      //     let response = await fetch(`${store.URL_BASE}/task`, {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-type": "application/json",
-      //         Authorization: `Bearer ${store.token}`,
-      //       },
-      //       body: JSON.stringify(body),
-      //     });
-      //     if (response.ok) {
-      //       actions.handleTasks(id);
-      //     }
-      //   } catch (error) {
-      //     console.log("ocurrio un error", error);
-      //   }
-      // },
       handleModalTasks: async (id) => {
         let store = getStore();
         try {
@@ -140,12 +98,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      newTask: async (id, project_id) => {
+      newTask: async (id, projectId) => {
         let store = getStore();
         let actions = getActions();
         let body = {
-          name: "",
-          project_id: project_id,
+          name: "title task",
+          description:"task content",
+          project_id: projectId,
           columntask_id: id,
         };
         try {
@@ -165,35 +124,26 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      handleUpdateTask: async (id, title, task_id, content, priority) => {
+      handleUpdateTask: async (task) => {
         let store = getStore();
         let actions = getActions();
-        let body = {
-          id: task_id,
-          name: title,
-          description: content,
-          columntask_id: id,
-          priority: priority
-        };
-        try {
+        let body = task;
+        try{
           let response = await fetch(`${store.URL_BASE}/task`, {
-            method: "PATCH",
-            body: JSON.stringify(body),
+            method: "PUT",
             headers: {
-              "Content-Type": "application/json",
+              "Content-type": "application/json",
+              Authorization: `Bearer ${store.token}`,
             },
-          });
-          if (response.ok) {
-            actions.handleTasks();
-          } else {
-            window.alert(
-              "This Favorite already exists in your list, enter a different one!"
-            );
+            body: JSON.stringify(body)
+          })
+          if (response.ok){
+           actions.handleTasks()
           }
-          console.log(id, title, task_id)
-      } catch {
-        console.log(error);
-      }
+        }
+        catch(error){
+          console.log("ocurrio un error",error)
+        }
       },
       deleteTask: async (id) => {
         let store = getStore();
@@ -246,7 +196,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           project_id: project_id,
         };
         try {
-          let response = await fetch(`${store.URL_BASE}/column`, {
+          let response = await fetch(`${store.URL_BASE}/column/1`, {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
@@ -313,7 +263,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       handle_newProject: async (project) => {
-        let store = getStore(id);
+        let store = getStore();
         try {
           const response = await fetch(`${store.URL_BASE}/newproject`, {
             method: "POST",
@@ -348,12 +298,139 @@ const getState = ({ getStore, getActions, setStore }) => {
               ...store,
               projects: data,
             });
-          }else{
-            console.log("No es miembro de un proyecto")
+          } else {
+            console.log("No es miembro de un proyecto");
           }
         } catch (error) {
           console.log("Hubo un error", error);
         }
+      },
+
+      getProfiles: async () => {
+        let store = getStore();
+        try {
+          let response = await fetch(`${store.URL_BASE}/profiles`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${store.token}`,
+            },
+          });
+          if (response.ok) {
+            let data = await response.json();
+            setStore({
+              ...store,
+              profiles: data,
+            });
+          } else {
+            console.log("No tiene colaboradores de proyecto");
+          }
+        } catch (error) {
+          console.log("Hubo un error", error);
+        }
+      },
+
+      getTasks: async () => {
+        let store = getStore();
+        try {
+          let response = await fetch(`${store.URL_BASE}/membertask`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${store.token}`,
+            },
+          });
+          if (response.ok) {
+            let data = await response.json();
+            setStore({
+              ...store,
+              tasksMember: data,
+            });
+          } else {
+            console.log("No tiene tareas asignadas");
+          }
+        } catch (error) {
+          console.log("Hubo un error", error);
+        }
+      },
+
+      getProfile: async () => {
+        let store = getStore();
+        try {
+          let response = await fetch(`${store.URL_BASE}/profile`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${store.token}`,
+            },
+          });
+          if (response.ok) {
+            let data = await response.json();
+            setStore({
+              ...store,
+              profileUser: data,
+            });
+          } else {
+            console.log("Hubo un error");
+          }
+        } catch (error) {
+          console.log("Hubo un error", error);
+        }
+      },
+
+      editProfile: async (profile) =>{
+        let store = getStore();
+        try {
+          let response = await fetch(`${store.URL_BASE}/profile`, {
+            method: "PUT",
+            body: JSON.stringify(profile),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${store.token}`,
+            },
+          });
+          if (response.ok) {
+            console.log("Se guardaron los cambios en el perfil del usuario");
+          } else {
+            console.log("Hubo un error");
+          }
+        } catch (error) {
+          console.log("Hubo un error", error);
+        }
+      },
+
+      getMemberProjects: async (id) =>{
+        let store = getStore();
+        try {
+          let response = await fetch(`${store.URL_BASE}/projectmember/${id}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${store.token}`,
+            },
+          });
+          if (response.ok) {
+            let data = await response.json();
+            setStore({
+              ...store,
+              membersProjects: data,
+            });
+            console.log("Se obtuvieron los miembros del proyecto");
+          } else {
+            console.log("Hubo un error");
+          }
+        } catch (error) {
+          console.log("Hubo un error", error);
+        }
+      },
+
+      Logout: () => {
+        let store = getStore();
+        setStore({
+          ...store,
+          token: "",
+        });
+        localStorage.removeItem("token");
       },
     },
   };

@@ -5,7 +5,7 @@ import { Footer } from "./footer"
 import orderlynav from "../../img/orderly-nav.png";
 
 const Login = () => {
-    const { actions } = useContext(Context)
+    const { store,actions } = useContext(Context)
     const [login, setLogin] = useState({
         email: "",
         password: ""
