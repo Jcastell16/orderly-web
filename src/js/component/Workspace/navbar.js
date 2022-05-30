@@ -166,8 +166,8 @@ const Navbar = () => {
                   {store.projects.length > 0 ? (
                     <>
                       {store.projects.map((project) => (
-                        <li key={project.id}>
-                          <Link to={`/project/${project.id}`}>
+                        <li key={project.id} className="dropdown-item" >
+                          <Link to={`/project/${project.id}`} className="text-decoration-none text-dark">
                             {project.name}
                           </Link>
                         </li>
