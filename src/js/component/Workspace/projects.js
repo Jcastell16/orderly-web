@@ -8,7 +8,7 @@ const Projects = ({ project }) => {
     <>
         <Link to={`/workspace/${project.id}`} className="d-flex text-decoration-none">
           <img
-            src="https://luna1.co/82896d.png"
+            src="https://luna1.co/e9ff45.png"
             style={{ width: "60px", height:"60px" }}
           />
           <p
