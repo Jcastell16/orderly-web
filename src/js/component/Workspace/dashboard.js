@@ -17,7 +17,7 @@ const Dashboard = () => {
     <>
 
       <Navbar />
-      <div className="container mt-4 pt-4 mb-5 pb-5" style={{backgroundColor:"#FFD4AA"}}>
+      <div className="container mt-4 pt-4 mb-5 pb-5">
         <div className="d-flex flex-row mb-3" style={{ height: "350px" }}>
           <div className="col-xs-6 text-left shadow-lg  me-3 bg-light rounded-3 w-100">
             <div className="d-flex ps-5 pt-4">
@@ -31,14 +31,14 @@ const Dashboard = () => {
             <div>
               {store.tasksMember.length > 0 ? (
                 <>
-                  <ul className="list-group list-group-light list-group-small">
+                  <ul className="list-group list-group-light list-group-small p-4 border-top border-bottom">
                     {store.tasksMember.map((task) => (
                       <Tasklist key={task.id} task={task} />
                     ))}
                   </ul>
                 </>
               ) : (
-                <span className="p-5 m-5">No tiene tareas asignadas</span>
+                <h6 className="p-4 mx-4">No tiene tareas asignadas</h6>
               )}
             </div>
           </div>
@@ -51,7 +51,7 @@ const Dashboard = () => {
                 <h5> Mis Proyectos</h5>
               </div>
             </div>
-            <div className="d-flex p-2 ms-3">
+            <div className="d-flex">
               {store.projects.length > 0 ? (
                 <>
                   {store.projects.map((project) => (
@@ -59,7 +59,7 @@ const Dashboard = () => {
                   ))}
                 </>
               ) : (
-                "Crea un proyecto"
+                <h6 className="p-4 mx-4">Crea un proyecto</h6>
               )}
             </div>
           </div>
@@ -86,7 +86,7 @@ const Dashboard = () => {
                   </div>
                 </>
               ) : (
-                "No tiene colaboradores"
+                <h6 className="p-4 mx-4">No tiene colaboradores</h6>
               )}
             </div>
           </div>
