@@ -11,7 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       projects: [],
       profiles: [],
       tasksMember: [],
-      profileUser: [],
+      profileUser: {},
       membersProjects: []
     },
     actions: {
@@ -37,6 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       handleLogin: async (login) => {
         let store = getStore();
+        let actions = getActions()
         const response = await fetch(`${store.URL_BASE}/login`, {
           method: "POST",
           headers: {
@@ -50,6 +51,9 @@ const getState = ({ getStore, getActions, setStore }) => {
             ...store,
             token: data.token,
           });
+          actions.getProjects();
+          actions.getProfiles();
+          actions.getTasks();
           localStorage.setItem("token", data.token);
         } else {
           console.log("ocurrio un error");
@@ -289,7 +293,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${store.token}`,
+              "Authorization": `Bearer ${store.token}`,
             },
           });
           if (response.ok) {

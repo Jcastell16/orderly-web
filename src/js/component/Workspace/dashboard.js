@@ -8,10 +8,12 @@ import "../../../styles/details.css";
 
 const Dashboard = () => {
   const { store, actions } = useContext(Context);
+
   useEffect(() => {
-    actions.getProjects();
-    actions.getProfiles();
-    actions.getTasks();
+    if (store.token && !store.profileUser)
+    {
+      actions.handleInicialData()
+    }
   }, []);
 
   return (

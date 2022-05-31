@@ -22,7 +22,7 @@ export const Columntask = ({item}) => {
         <>
             <div className="row">
                 <div className="col" data-col-num="1">
-                    <div className="card card-col p-3 border border-3 rounded border-light mx-1 bg-light " style={{ "maxWidth": "20rem", "minWidth": "20rem" }}>
+                    <div className="card card-col p-3 border border-3 rounded border-light mx-1 bg-light" style={{ "maxWidth": "20rem", "minWidth": "20rem" }}>
                     <div className="d-flex align-content-center justify-content-between">
                     {item.name.length > 0 ? (
                     <h5 type="text" className="text-center title-col form-control-lg mb-2 border-0" onChange={(event)=> setUpdateColumn({...updateColumn, [event.target.name]: event.target.value})} onClick={()=> actions.handleUpdateColumn(updateColumn.name, updateColumn.column_id, updateColumn.project_id)}>{item.name}</h5>
