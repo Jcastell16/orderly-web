@@ -20,6 +20,7 @@ const Navbar = () => {
     getProfile({ ...profile, [event.target.name]: event.target.value });
   };
 
+
   return (
     <>
       <div

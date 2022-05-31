@@ -14,6 +14,7 @@ const Dashboard = () => {
     actions.getTasks();
   }, []);
 
+  console.log(store.projects)
   return (
     <>
       <Navbar />
