@@ -1,69 +1,61 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../../store/appContext";
 import { Link } from "react-router-dom";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Profiles = ({ profile }) => {
-  
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <>
-          <div
-        className="modal fade"
-        id="exampleModal1"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <img
-                src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                alt=""
-                style={{ width: "70px", height: "70px" }}
-                className="rounded-circle"
-              />
-              <h4 className="modal-title ms-2" id="exampleModalLabel">
-                Perfil
-              </h4>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <div className="d-flex flex-row">
-                <input
-                  type="text"
-                  className="form-control me-2"
-                  name="Nombre"
-                  defaultValue={profile.name}
-                  readOnly
-                />
-                <input type="text" className="form-control" name="Apellido" defaultValue={profile.lastname} readOnly/>
-              </div>
-              <textarea
-                className="form-control mt-3"
-                rows="2"
-                id="description"
-                name="description"
-                defaultValue={profile.description}
-                readOnly
-              ></textarea>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cerrar
-              </button>
-            </div>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <img
+            src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+            alt=""
+            style={{ width: "70px", height: "70px" }}
+            className="rounded-circle"
+          />
+          <h4 className="modal-title ms-2" id="exampleModalLabel">
+            Perfil
+          </h4>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="d-flex flex-row">
+            <input
+              type="text"
+              className="form-control me-2"
+              name="Nombre"
+              defaultValue={profile.name}
+              readOnly
+            />
+            <input
+              type="text"
+              className="form-control"
+              name="Apellido"
+              defaultValue={profile.lastname}
+              readOnly
+            />
           </div>
-        </div>
-      </div>
+          <textarea
+            className="form-control mt-3"
+            rows="2"
+            id="description"
+            name="description"
+            defaultValue={profile.description}
+            readOnly
+          ></textarea>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       <div className="col-xl-3 col-lg-2 mb-4 me-3">
         <div className="card">
@@ -80,13 +72,10 @@ const Profiles = ({ profile }) => {
                   {profile.name} {profile.lastname}
                 </p>
                 <p className="text-muted mb-0">
-                  <button
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal1"
-                    className="btn btn-primary"
-                  >
-                    Ver perfil
-                  </button>
+
+                <Button variant="outline-dark" onClick={handleShow}>
+                Ver perfil        
+                </Button>
                 </p>
               </div>
             </div>

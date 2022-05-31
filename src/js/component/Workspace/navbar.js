@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useEffect } from "react";
 import { Context } from "../../store/appContext";
 import { Link } from "react-router-dom";
 import details from "../../../styles/details.css";
@@ -20,6 +20,13 @@ const Navbar = () => {
     getProfile({ ...profile, [event.target.name]: event.target.value });
   };
 
+  useEffect(() => {
+    if (store.token){
+      actions.getProjects();
+      actions.getProfile();
+    }
+  }, []);
+  console.log(store.projects)
   return (
     <>
       <div
@@ -54,13 +61,13 @@ const Navbar = () => {
                   type="text"
                   className="form-control me-2"
                   name="Nombre"
-                  value={profileUser.name}
+                  defaultValue={profileUser.name}
                 />
                 <input
                   type="text"
                   className="form-control"
                   name="Apellido"
-                  value={profileUser.lastname}
+                  defaultValue={profileUser.lastname}
                 />
               </div>
               <div className="form-check mt-2">
@@ -90,13 +97,14 @@ const Navbar = () => {
                 rows="2"
                 id="description"
                 name="description"
-                placeholder="Escribe una descripcion de ti"
+                placeholder="Description"
                 onChange={(event) =>
                   getProfile({
                     ...profile,
                     [event.target.name]: event.target.value,
                   })
                 }
+                
               ></textarea>
             </div>
             <div className="modal-footer">
@@ -112,6 +120,7 @@ const Navbar = () => {
                 className="btn btn-primary"
                 to="/dashboard"
                 onClick={() => actions.editProfile(profile)}
+                data-bs-dismiss="modal"
               >
                 Guardar
               </Link>
@@ -136,9 +145,7 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
-                  <i className="fas fa-home"></i> Home
-                </a>
+                <Link className="nav-link active" to="/dashboard" aria-current="page"> <i className="fas fa-home"></i> Home</Link>
               </li>
               <li className="nav-item d-flex">
                 <button
@@ -151,16 +158,16 @@ const Navbar = () => {
                 </button>
               </li>
               <li className="nav-item dropdown">
-                <a
+                <Link
                   className="nav-link dropdown-toggle"
-                  href="#"
+                  to=""
                   id="navbarDropdown"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   Proyectos
-                </a>
+                </Link>
 
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   {store.projects.length > 0 ? (
