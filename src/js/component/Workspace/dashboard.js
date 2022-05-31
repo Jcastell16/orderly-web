@@ -10,12 +10,14 @@ const Dashboard = () => {
   const { store, actions } = useContext(Context);
 
   useEffect(() => {
-    if (store.token && !store.profileUser)
-    {
-      actions.handleInicialData()
+    if (store.token){
+      actions.getProjects();
+      actions.getProfiles();
+      actions.getProfile();
+      actions.getTasks();
     }
   }, []);
-
+  console.log(store.projects)
   return (
     <>
       <Navbar />
