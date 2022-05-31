@@ -26,15 +26,9 @@ const Viewproject = () => {
     
   };
 
-  const [proyecto, setProyecto] = useState({
-    name: "",
-    due_date: "",
-    description: "",
-    members: [],
-  });
 
   useEffect(() => {
-    getProjects();
+    actions.getProjects();
     actions.getMemberProjects(id)
   },[]);
 
@@ -112,15 +106,6 @@ const Viewproject = () => {
                             readOnly
                           ></textarea>
                         </div>
-                        {/* <div className="justify-content-center mx-4 mt-3 mb-lg-4">
-                          <Link
-                            className="btn btn-primary btn-xl"
-                            to="/dashboard"
-                            type="button"
-                          >
-                            <span>Guardar</span>
-                          </Link>
-                        </div> */}
                       </form>
                     </div>
                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
