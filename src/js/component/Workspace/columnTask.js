@@ -17,6 +17,7 @@ export const Columntask = ({item}) => {
     })
     useEffect(() => {
         actions.getColumn(id);
+        actions.handleTasks();
       }, []);
     return (
         <>

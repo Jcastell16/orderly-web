@@ -15,6 +15,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       membersProjects: []
     },
     actions: {
+      handleInitialData: async ()=>{
+        let actions = getActions();
+        actions.getProjects();
+        actions.getTasks();
+        actions.getProfiles();
+        actions.getProfile();
+      },
       handle_register: async (register) => {
         let store = getStore();
         try {
@@ -37,6 +44,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       handleLogin: async (login) => {
         let store = getStore();
+        let actions = getActions();
         const response = await fetch(`${store.URL_BASE}/login`, {
           method: "POST",
           headers: {
@@ -51,6 +59,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             token: data.token,
           });
           localStorage.setItem("token", data.token);
+          actions.handleInitialData();
         } else {
           console.log("ocurrio un error");
         }
