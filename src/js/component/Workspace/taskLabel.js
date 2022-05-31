@@ -16,6 +16,9 @@ export const Tasklabel = ({ task, item }) => {
         priority: task.priority,
         members: []
     })
+    const [member, setMember]= useState({
+        id: ""
+    })
     const { store, actions } = useContext(Context)
 
     const [show, setShow] = useState(false);
@@ -47,24 +50,24 @@ export const Tasklabel = ({ task, item }) => {
                         <p className="card-text">{task.description}</p>
                     </div>
                     <div className="card-footer d-flex align-items-center justify-content-between bg-transparent border-0">
-                        <button type="button" className="btn btn-outline-dark border-0" data-bs-toggle="modal" data-bs-target="#modal-card"><i className="fas fa-user-plus"></i></button>
-                        <span className="card-title me-3">Due-date</span>
+                        <h6>{task.priority}</h6>
+                        <span className="card-title me-3">{task.due_date}</span>
                     </div>
                 </div>
             ) : (
                 "")}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <input name="name" onChange={(event) => setUpdateTask({ ...updateTask, [event.target.name]: event.target.value })} placeholder={updateTask.name}></input>
+                    <div className="d-flex flex-column">
+                        <h6>Title:</h6>
+                        <input name="name" onChange={(event) => setUpdateTask({ ...updateTask, [event.target.name]: event.target.value })} placeholder={updateTask.name}></input>
+                    </div>
                 </Modal.Header>
                 <Modal.Body>
                     <h6>Description :</h6>
                     <input name="description" onChange={(event) => setUpdateTask({ ...updateTask, [event.target.name]: event.target.value })} placeholder="content task"></input>
                     <br />
-                    <br />
-                    <h6>Members :</h6>
-                    <select className="form-select" aria-label="Default select example" id="select-type"></select>
-                    <br />
+                    <br/>
                     <h6>Selection priority :</h6>
                     <select className="form-select" aria-label="Default select example" id="select-type" name="priority" value={updateTask.priority} onChange={(event) => setUpdateTask({ ...updateTask, [event.target.name]: event.target.value })}>
                         <option defaultValue></option>
@@ -74,7 +77,7 @@ export const Tasklabel = ({ task, item }) => {
                     </select>
                     <br />
                     <h6>Due date</h6>
-                    {/* <div className="input-group date" id="datepicker">
+                    <div className="input-group date" id="datepicker">
                             <DatePicker
                                 className="form-control form-outline flex-fill mb-0"
                                 wrapperClassName="datePicker"
@@ -84,7 +87,7 @@ export const Tasklabel = ({ task, item }) => {
                                 setUpdateTask({ ...updateTask, due_date: date })
                                 }
                             />
-                    </div> */}
+                    </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
