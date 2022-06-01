@@ -366,12 +366,18 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      editProfile: async (profile) => {
+      editProfile: async (name, lastname, gender, description) => {
         let store = getStore();
+        let body = {
+          name: name,
+          lastname: lastname,
+          gender: gender,
+          description: description
+        };
         try {
           let response = await fetch(`${store.URL_BASE}/profile`, {
             method: "PUT",
-            body: JSON.stringify(profile),
+            body: JSON.stringify(body),
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${store.token}`,

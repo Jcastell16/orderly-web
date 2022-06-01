@@ -1,4 +1,4 @@
-import React, { useState, useContext,useEffect } from "react";
+import React, { useState, useContext, useEffect, Profiler } from "react";
 import { Context } from "../../store/appContext";
 import { Link } from "react-router-dom";
 import details from "../../../styles/details.css";
@@ -9,24 +9,25 @@ const Navbar = () => {
 
   const { profileUser } = store;
 
-  const initialState = {
-    gender: "",
-    description: "",
-  };
-
-  const [profile, getProfile] = useState(initialState);
+  const [profile, setProfile] = useState(
+    {
+      name: "",
+      lastname: "",
+      gender: "",
+      description: "",
+    }
+  );
 
   const handleGender = (event) => {
-    getProfile({ ...profile, [event.target.name]: event.target.value });
+    setProfile({ ...profile, [event.target.name]: event.target.value });
   };
 
   useEffect(() => {
-    if (store.token){
+    if (store.token) {
       actions.getProjects();
       actions.getProfile();
     }
   }, []);
-  console.log(store.projects)
   return (
     <>
       <div
@@ -39,15 +40,23 @@ const Navbar = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <img
-                src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                alt=""
-                style={{ width: "70px", height: "70px" }}
-                className="rounded-circle"
-              />
-              <h4 className="modal-title ms-2" id="exampleModalLabel">
-                Perfil
-              </h4>
+              {profileUser.gender == "Hombre" ?
+                <img
+                  src="https://www.w3schools.com/howto/img_avatar.png"
+                  alt=""
+                  style={{ width: "70px", height: "70px" }}
+                  className="rounded-circle"
+                /> :
+                <img
+                  src="https://www.w3schools.com/howto/img_avatar2.png"
+                  alt=""
+                  style={{ width: "70px", height: "70px" }}
+                  className="rounded-circle"
+                />
+              }
+              <h2 className="modal-title mx-3" id="exampleModalLabel">
+                {profileUser.name} {profileUser.lastname}
+              </h2>
               <button
                 type="button"
                 className="btn-close"
@@ -60,14 +69,15 @@ const Navbar = () => {
                 <input
                   type="text"
                   className="form-control me-2"
-                  name="Nombre"
-                  defaultValue={profileUser.name}
-                />
+                  name="name"
+                  placeholder="Editar Nombre"
+                  onChange={(event) => setProfile({ ...profile, [event.target.name]: event.target.value })} />
                 <input
                   type="text"
                   className="form-control"
-                  name="Apellido"
-                  defaultValue={profileUser.lastname}
+                  name="lastname"
+                  placeholder="Editar Apellido"
+                  onChange={(event) => setProfile({ ...profile, [event.target.name]: event.target.value })}
                 />
               </div>
               <div className="form-check mt-2">
@@ -97,33 +107,36 @@ const Navbar = () => {
                 rows="2"
                 id="description"
                 name="description"
-                placeholder="Description"
-                onChange={(event) =>
-                  getProfile({
-                    ...profile,
-                    [event.target.name]: event.target.value,
-                  })
-                }
-                
+                placeholder="Cuentanos sobre ti!!"
+                onChange={(event) => setProfile({ ...profile, [event.target.name]: event.target.value })}
               ></textarea>
             </div>
             <div className="modal-footer">
               <button
                 type="button"
                 className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
+                data-bs-dismiss="modal">
                 Cerrar
               </button>
-              <Link
+              {Profiler.nombre == "" && Profiler.apellido == "" ?
+                <Link
+                  type="button"
+                  className="btn btn-primary"
+                  to="/dashboard"
+                  onClick={() => actions.editProfile(profileUser.name, profileUser.lastname, profile.gender, profile.description)}
+                  data-bs-dismiss="modal">
+                  Guardar
+                </Link>
+                :
+                <Link
                 type="button"
                 className="btn btn-primary"
                 to="/dashboard"
-                onClick={() => actions.editProfile(profile)}
-                data-bs-dismiss="modal"
-              >
+                onClick={() => actions.editProfile(profile.name, profile.lastname, profile.gender, profile.description)}
+                data-bs-dismiss="modal">
                 Guardar
               </Link>
+              }
             </div>
           </div>
         </div>
