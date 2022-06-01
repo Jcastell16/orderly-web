@@ -255,7 +255,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             body: JSON.stringify(project),
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${store.token}`,
+              "Authorization": `Bearer ${store.token}`,
             },
           });
           if (response.ok) {

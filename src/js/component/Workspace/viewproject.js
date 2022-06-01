@@ -28,7 +28,7 @@ const Viewproject = () => {
 
 
   useEffect(() => {
-    actions.getProjects();
+    getProjects();
     actions.getMemberProjects(id)
   },[]);
 

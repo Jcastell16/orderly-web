@@ -17,7 +17,7 @@ const Dashboard = () => {
       actions.getTasks();
     }
   }, []);
-  console.log(store.projects)
+
   return (
     <>
       <Navbar />
@@ -34,9 +34,9 @@ const Dashboard = () => {
             </div>
             {store.tasksMember.length > 0 ? (
               <>
-                <div className=" position-relative">
+                <div className=" ">
                   <ul
-                    className="position-absolute mx-3 scroll list-group list-group-light list-group-small p-4 border-0"
+                    className=" mx-3 scroll list-group list-group-light list-group-small p-4 border-0"
                     style={{
                       maxWidth: "32rem",
                       width: "32rem",

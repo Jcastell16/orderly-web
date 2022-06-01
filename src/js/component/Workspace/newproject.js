@@ -7,8 +7,7 @@ import projectimg from "../../../img/project.jpg";
 
 
 const initialState = {
-  email: "",
-  rol: "",
+  email: ""
 };
 
 export const Newproject = () => {
@@ -74,6 +73,7 @@ export const Newproject = () => {
       console.log("Hubo un error", error);
     }
   };
+  console.log(project)
   return (
     <>
 
@@ -174,20 +174,7 @@ export const Newproject = () => {
                                 onChange={handleChangeMember}
                               />
                             </div>
-                            <div className="d-flex flex-row align-items-center mb-4">
-                            <i className="fas fa-users fa-lg ms-2 me-3 fa-fw"></i>
-                              <select
-                                className="form-select"
-                                aria-label="Default select example"
-                                value={member.rol}
-                                name="rol"
-                                onChange={handleChangeMember}
-                              >
-                                <option defaultValue></option>
-                                <option value="Administrador"> Administrador </option>
-                                <option value="Usuario"> Usuario </option>
-                              </select>
-                            </div>
+
                             <div className="card card-col bg-light mb-3">
                               <button
                                 className="btn btn-outline-primary"
@@ -201,7 +188,7 @@ export const Newproject = () => {
                               <div key={index} className="border-bottom w-100 mt-2">
                                 <ul className="list-group list-group-flush vertical-align">
                                   <li className="list-group-item d-flex justify-content-between">
-                                    {item.email} {item.rol}
+                                    {item.email}
                                     <button
                                       type="button"
                                       className="eliminar btn btn-light mt-2 px-3 py-1"
@@ -233,7 +220,13 @@ export const Newproject = () => {
                           ></textarea>
                         </div>
                         <div className="justify-content-center mx-4 mt-3 mb-lg-4">
-                          <Link
+                          {project.name === "" ? (<Link
+                            className="btn btn-primary btn-xl"
+                            to="/newproject"
+                            type="button"
+                          >
+                            <span>Guardar</span>
+                          </Link>): (<Link
                             className="btn btn-primary btn-xl"
                             to="/dashboard"
                             type="button"
@@ -242,7 +235,8 @@ export const Newproject = () => {
                             }
                           >
                             <span>Guardar</span>
-                          </Link>
+                          </Link>)}
+                          
                         </div>
                       </form>
                     </div>

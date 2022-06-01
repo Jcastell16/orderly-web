@@ -1,9 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../../store/appContext";
 import details from "../../../styles/details.css";
 
 const Projects = ({ project }) => {
+
   return (
     <>
         <Link to={`/workspace/${project.id}`} className="d-flex text-decoration-none">

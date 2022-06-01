@@ -26,7 +26,7 @@ const Navbar = () => {
       actions.getProfile();
     }
   }, []);
-  console.log(store.projects)
+
   return (
     <>
       <div
