@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import "react-datepicker/dist/react-datepicker.css";
+import details from "../../../styles/details.css"
 
 const Profiles = ({ profile }) => {
   const [show, setShow] = useState(false);
@@ -59,7 +60,7 @@ const Profiles = ({ profile }) => {
 
       <div className="col-xl-3 col-lg-2 mb-4 me-3">
         <div className="card">
-          <div className="card-body">
+          <div className="card-body ">
             <div className="d-flex align-items-center">
               <img
                 src="https://mdbootstrap.com/img/new/avatars/8.jpg"
@@ -73,7 +74,7 @@ const Profiles = ({ profile }) => {
                 </p>
                 <p className="text-muted mb-0">
 
-                <Button variant="outline-dark" onClick={handleShow}>
+                <Button variant="btn btn-light px-1 py-0" onClick={handleShow}>
                 Ver perfil        
                 </Button>
                 </p>

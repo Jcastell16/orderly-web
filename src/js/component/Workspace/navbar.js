@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, Profiler } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../../store/appContext";
 import { Link } from "react-router-dom";
 import details from "../../../styles/details.css";
@@ -9,14 +9,12 @@ const Navbar = () => {
 
   const { profileUser } = store;
 
-  const [profile, setProfile] = useState(
-    {
-      name: "",
-      lastname: "",
-      gender: "",
-      description: "",
-    }
-  );
+  const [profile, setProfile] = useState({
+    name: "",
+    lastname: "",
+    gender: "",
+    description: "",
+  });
 
   const handleGender = (event) => {
     setProfile({ ...profile, [event.target.name]: event.target.value });
@@ -28,6 +26,7 @@ const Navbar = () => {
       actions.getProfile();
     }
   }, []);
+  
   return (
     <>
       <div
@@ -39,21 +38,29 @@ const Navbar = () => {
       >
         <div className="modal-dialog">
           <div className="modal-content">
-            <div className="modal-header">
-              {profileUser.gender == "Hombre" ?
+            <div className="modal-header"> 
+              {profileUser.gender == "Hombre" ? (
                 <img
                   src="https://www.w3schools.com/howto/img_avatar.png"
                   alt=""
                   style={{ width: "70px", height: "70px" }}
                   className="rounded-circle"
-                /> :
+                />
+              ) : profileUser.gender == "Mujer" ? (
                 <img
                   src="https://www.w3schools.com/howto/img_avatar2.png"
                   alt=""
                   style={{ width: "70px", height: "70px" }}
                   className="rounded-circle"
                 />
-              }
+              ) : (
+                <img
+                  src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_640.png"
+                  alt=""
+                  style={{ width: "70px", height: "70px" }}
+                  className="rounded-circle"
+                />
+              )}
               <h2 className="modal-title mx-3" id="exampleModalLabel">
                 {profileUser.name} {profileUser.lastname}
               </h2>
@@ -71,45 +78,121 @@ const Navbar = () => {
                   className="form-control me-2"
                   name="name"
                   placeholder="Editar Nombre"
-                  onChange={(event) => setProfile({ ...profile, [event.target.name]: event.target.value })} />
+                  onChange={(event) =>
+                    setProfile({
+                      ...profile,
+                      [event.target.name]: event.target.value,
+                    })
+                  }
+                />
                 <input
                   type="text"
                   className="form-control"
                   name="lastname"
                   placeholder="Editar Apellido"
-                  onChange={(event) => setProfile({ ...profile, [event.target.name]: event.target.value })}
+                  onChange={(event) =>
+                    setProfile({
+                      ...profile,
+                      [event.target.name]: event.target.value,
+                    })
+                  }
                 />
               </div>
               <div className="form-check mt-2">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  value="Hombre"
-                  name="gender"
-                  onChange={handleGender}
-                />
-                <h6 className="form-check-label" htmlFor="inlineRadio1">
-                  Hombre
-                </h6>
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  value="Mujer"
-                  name="gender"
-                  onChange={handleGender}
-                />
-                <h6 className="form-check-label" htmlFor="inlineRadio2">
-                  Mujer
-                </h6>
+                {profileUser.gender == "Hombre" ? (
+                  <>
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      value="Hombre"
+                      name="gender"
+                      checked="checked"
+                      onChange={handleGender}
+                    />
+                    <h6 className="form-check-label" htmlFor="inlineRadio1">
+                      Hombre
+                    </h6>
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      value="Mujer"
+                      name="gender"
+                      onChange={handleGender}
+                    />
+                    <h6 className="form-check-label" htmlFor="inlineRadio2">
+                      Mujer
+                    </h6>
+                  </>
+                ) : profileUser.gender == "Mujer" ? (
+                  <>
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      value="Hombre"
+                      name="gender"
+                      onChange={handleGender}
+                    />
+                    <h6 className="form-check-label" htmlFor="inlineRadio1">
+                      Hombre
+                    </h6>
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      value="Mujer"
+                      name="gender"
+                      checked="checked"
+                      onChange={handleGender}
+                    />
+                    <h6 className="form-check-label" htmlFor="inlineRadio2">
+                      Mujer
+                    </h6>
+                  </>
+                ) : (
+                  <>
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      value="Hombre"
+                      name="gender"
+                      onChange={handleGender}
+                    />
+                    <h6 className="form-check-label" htmlFor="inlineRadio1">
+                      Hombre
+                    </h6>
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      value="Mujer"
+                      name="gender"
+                      onChange={handleGender}
+                    />
+                    <h6 className="form-check-label" htmlFor="inlineRadio2">
+                      Mujer
+                    </h6>
+                  </>
+
+                )}
               </div>
-              <textarea
-                className="form-control mt-3"
-                rows="2"
-                id="description"
-                name="description"
-                placeholder="Cuentanos sobre ti!!"
-                onChange={(event) => setProfile({ ...profile, [event.target.name]: event.target.value })}
-              ></textarea>
+              <h5 className="form-label">Descripción</h5>
+              {profileUser.description == null ? (
+                              <textarea
+                              className="form-control mt-3"
+                              rows="2"
+                              id="description"
+                              name="description"
+                              placeholder="Cuentanos sobre ti"
+                              onChange={(event) =>
+                                setProfile({
+                                  ...profile,
+                                  [event.target.name]: event.target.value,
+                                })
+                              }
+                            ></textarea>
+              ) : (
+                <>
+                  <p className="border border-1 p-3">{profileUser.description}</p>
+                </>
+              )}
             </div>
             <div className="modal-footer">
               <button
@@ -118,25 +201,21 @@ const Navbar = () => {
                 data-bs-dismiss="modal">
                 Cerrar
               </button>
-              {Profiler.nombre == "" && Profiler.apellido == "" ?
                 <Link
                   type="button"
                   className="btn btn-primary"
                   to="/dashboard"
-                  onClick={() => actions.editProfile(profileUser.name, profileUser.lastname, profile.gender, profile.description)}
+                  onClick={() =>
+                    actions.editProfile(
+                      profileUser.name,
+                      profileUser.lastname,
+                      profile.gender,
+                      profile.description
+                    )
+                  }
                   data-bs-dismiss="modal">
                   Guardar
                 </Link>
-                :
-                <Link
-                type="button"
-                className="btn btn-primary"
-                to="/dashboard"
-                onClick={() => actions.editProfile(profile.name, profile.lastname, profile.gender, profile.description)}
-                data-bs-dismiss="modal">
-                Guardar
-              </Link>
-              }
             </div>
           </div>
         </div>
@@ -158,7 +237,13 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link active" to="/dashboard" aria-current="page"> <i className="fas fa-home"></i> Home</Link>
+                <Link
+                  className="nav-link active"
+                  to="/dashboard"
+                  aria-current="page"
+                >
+                  <i className="fas fa-home"></i> Home
+                </Link>
               </li>
               <li className="nav-item d-flex">
                 <button
@@ -186,8 +271,11 @@ const Navbar = () => {
                   {store.projects.length > 0 ? (
                     <>
                       {store.projects.map((project) => (
-                        <li key={project.id} className="dropdown-item" >
-                          <Link to={`/project/${project.id}`} className="text-decoration-none text-dark">
+                        <li key={project.id} className="dropdown-item">
+                          <Link
+                            to={`/project/${project.id}`}
+                            className="text-decoration-none text-dark"
+                          >
                             {project.name}
                           </Link>
                         </li>
