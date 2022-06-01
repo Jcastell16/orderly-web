@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import projectimg from "../../../img/project.jpg";
+import moment from "moment";
 
 const Viewproject = () => {
   const { store, actions } = useContext(Context);
@@ -68,7 +69,7 @@ const Viewproject = () => {
                               className="form-control"
                               name="name"
                               dateformat='dd-MM-yyyy'
-                              defaultValue={project.due_date}
+                              defaultValue={moment(project.due_date).utc().format('YYYY-MM-DD')}
                               readOnly
                             />
                             </div>

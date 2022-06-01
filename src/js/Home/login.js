@@ -12,7 +12,7 @@ const Login = () => {
     });
     return (
         <>
-            <div className="container-fluid vh-1000 p-3" style={{ background: "url(https://cdn.pixabay.com/photo/2017/10/31/19/05/web-design-2906159_960_720.jpg)", backgroundSize: "cover" }}>
+            <div className="container-fluid vh-100 p-3" style={{ background: "url(https://cdn.pixabay.com/photo/2017/10/31/19/05/web-design-2906159_960_720.jpg)", backgroundSize: "cover" }}>
                 <div className="">
                 <Link className="mx-3" to="/"><img src={orderlynav} /></Link>
                     <div className="mt-3 rounded d-flex justify-content-center align-items-center h-100">
