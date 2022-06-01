@@ -25,7 +25,7 @@ export const Navbar = () => {
 					<div className="d-flex align-items-center">
 						<ul className="navbar-nav mb-2 mb-lg-0">
 							<li className="nav-item">
-								<Link className="nav-link text-white" to="#">About</Link>
+								<Link className="nav-link text-white" to="/about">About</Link>
 							</li>
 						</ul>
 						<ul className="navbar-nav mb-2 mb-lg-0">
