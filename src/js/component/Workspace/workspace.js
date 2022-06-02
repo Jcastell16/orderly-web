@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import  Navbar from "./navbar";
 import {Context} from "../../store/appContext"
 import { Columntask } from "./columnTask";
+import "../../../styles/details.css";
 
 
 export const Workspace = () => {
@@ -11,6 +12,7 @@ export const Workspace = () => {
 	let { id } = params
     useEffect(() => {
         actions.getColumn(id);
+        actions.handleTasks();
       }, []);
     return (
         <>
@@ -24,7 +26,7 @@ export const Workspace = () => {
                             <button className="btn btn-primary btn-icon mx-2" onClick={() => actions.handleNewColumn(id)}><i className="fas fa-plus icon-btn"></i>  Add Column</button>
                         </span>
                     </div>
-                    <div className="d-flex p-3 ">
+                    <div className="d-flex p-3">
                     {store.columnboard.map((item) => (
                     <Columntask  key={item.id} item = {item}/>
 					))}

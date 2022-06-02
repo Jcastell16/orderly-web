@@ -11,7 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       projects: [],
       profiles: [],
       tasksMember: [],
-      profileUser: [],
+      profileUser: {},
       membersProjects: []
     },
     actions: {
@@ -58,6 +58,9 @@ const getState = ({ getStore, getActions, setStore }) => {
             ...store,
             token: data.token,
           });
+          actions.getProjects();
+          actions.getProfiles();
+          actions.getTasks();
           localStorage.setItem("token", data.token);
           actions.handleInitialData();
         } else {
@@ -298,7 +301,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${store.token}`,
+              "Authorization": `Bearer ${store.token}`,
             },
           });
           if (response.ok) {
@@ -385,6 +388,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           } else {
             console.log("Hubo un error");
           }
+          console.log(body)
         } catch (error) {
           console.log("Hubo un error", error);
         }

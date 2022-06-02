@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button'
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import moment from "moment";
+import "../../../styles/details.css"
 
 export const Tasklabel = ({ task, item }) => {
     const [updateTask, setUpdateTask] = useState({
@@ -110,6 +111,7 @@ export const Tasklabel = ({ task, item }) => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            
         </>
     );
 };
