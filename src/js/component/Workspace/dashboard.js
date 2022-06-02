@@ -17,7 +17,7 @@ const Dashboard = () => {
       actions.getTasks();
     }
   }, []);
-  console.log(store.projects);
+  console.log(store.profiles);
   return (
     <>
       <Navbar />
@@ -80,37 +80,39 @@ const Dashboard = () => {
               </div>
             </div>
             <>
-            {store.projects.length > 0 && store.projects.length < 7 ? (
-              <div
-                className="wrapper p-4"
-                style={{
-                  maxWidth: "32rem",
-                  width: "32rem",
-                  maxHeight: "17rem",
-                }}>
+              {store.projects.length > 0 && store.projects.length < 7 ? (
+                <div
+                  className="wrapper p-4"
+                  style={{
+                    maxWidth: "32rem",
+                    width: "32rem",
+                    maxHeight: "17rem",
+                  }}
+                >
                   {store.projects.map((project) => (
                     <Projects key={project.id} project={project} />
                   ))}
-              </div>
-            ) : store.projects.length > 6 ? (
-              <div
-                className="wrapper scroll p-4"
-                style={{
-                  maxWidth: "32rem",
-                  width: "32rem",
-                  maxHeight: "17rem",
-                }}>
+                </div>
+              ) : store.projects.length > 6 ? (
+                <div
+                  className="wrapper scroll p-4"
+                  style={{
+                    maxWidth: "32rem",
+                    width: "32rem",
+                    maxHeight: "17rem",
+                  }}
+                >
                   {store.projects.map((project) => (
                     <Projects key={project.id} project={project} />
                   ))}
-              </div>
-            ) : (
-              <h6 className="p-4 mx-4">Crea un proyecto</h6>
-            )}
+                </div>
+              ) : (
+                <h6 className="p-4 mx-4">Crea un proyecto</h6>
+              )}
             </>
           </div>
         </div>
-        <div className="row m-0" style={{ height: "350px" }}>
+        <div className="row m-0" style={{ height: "380px" }}>
           <div className="col-xs-6 text-left shadow-lg bg-light rounded-3 w-100">
             <div className=" d-flex ps-5 pt-4">
               <div>
@@ -120,19 +122,30 @@ const Dashboard = () => {
                 <h5> Colaboradores</h5>
               </div>
             </div>
-            <div className="col-xl-8 col-lg-2">
-            {store.profiles.length > 0 ? (
-                <>
-                    <div className="d-flex">
-                      {store.profiles.map((profile) => (
-                        <Profiles key={profile.id} profile={profile} />
-                      ))}
-                    </div>
-                </>
-              ) : (
-                <h6 className="p-4 mx-4">No tiene colaboradores</h6>
-              )}
-            </div>
+
+            {store.profiles.length > 0 && store.profiles.length < 8 ? (
+              <>
+                <div
+                  className="wrapper2 m-2"
+                >
+                  {store.profiles.map((profile) => (
+                    <Profiles key={profile.id} profile={profile} />
+                  ))}
+                </div>
+              </>
+            ) : store.profiles.length > 7 ? (
+              <>
+                <div
+                  className="wrapper2 scroll m-2"
+                >
+                  {store.profiles.map((profile) => (
+                    <Profiles key={profile.id} profile={profile} />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <h6 className="p-4 mx-4">No tiene colaboradores</h6>
+            )}
           </div>
         </div>
       </div>

@@ -115,7 +115,7 @@ const Register = () => {
                           ) : (
                             <Link
                               className="btn btn-primary btn-md rounded-pill shadow-lg"
-                              to="/"
+                              to="/login"
                               onClick={() => actions.handle_register(register)}
                             >
                               <span>Registrate</span>

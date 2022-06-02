@@ -58,9 +58,9 @@ const Profiles = ({ profile }) => {
         </Modal.Footer>
       </Modal>
 
-      <div className="col-xl-3 col-lg-2 mb-4 me-3">
+      <div className="col-xl-12">
         <div className="card">
-          <div className="card-body ">
+          <div className="card-body">
             <div className="d-flex align-items-center">
               <img
                 src="https://mdbootstrap.com/img/new/avatars/8.jpg"
