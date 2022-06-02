@@ -6,7 +6,7 @@ export const Services = () => (
 	<>
         <section className="page-section" style={{ backgroundColor: "#EEE9E6" }} id="services">
             <div className="container px-4 px-lg-5">
-                <h2 className="text-center mt-0">Nuestros Servicios</h2>
+                <h2 className="text-center mt-0"id="services">Nuestros Servicios</h2>
                 <hr className="divider" />
                 <div className="row gx-4 gx-lg-5">
                 <div className="row text-center mt-3">

@@ -2,13 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/home.css";
 
-export const Contact = () => (
-    <>
+export const Contact = () => {
+    const alert =()=>{
+        return window.alert("Su mensaje fue enviado")
+    }
+    return(<>
         <section className="page-section" style={{ backgroundColor: "#80756D" }} id="contact">
             <div className="container col-12  mx-auto h-300">
                 <div className="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
                     <div className="col-lg-8 col-lg-offset-2">
-                    <h2 className="mt-0 text-white font-weight-bold mb-3">Contáctenos</h2>
+                    <h2 className="mt-0 text-white font-weight-bold mb-3" id="contact">Contáctenos</h2>
                     <hr className="divider text-white"/>
                         <form id="contact-form" method="post" action="" role="form">
                             <div className="messages"></div>
@@ -54,7 +57,7 @@ export const Contact = () => (
                                         </div>
                                     </div>
                                     <div className="col-md-12">
-                                        <input type="submit" className="btn btn-light btn-xl mt-3" value="ENVIAR"/>
+                                        <button type="button" className="btn btn-light btn-xl mt-3" value="ENVIAR" onClick={()=>alert()}>ENVIAR</button>
                                     </div>
                                 </div>
                             </div>
@@ -63,5 +66,5 @@ export const Contact = () => (
                 </div>
             </div>
         </section>
-    </>
-);
+    </>)
+};
