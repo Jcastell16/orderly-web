@@ -74,6 +74,7 @@
 		]
 	},
 	"dependencies": {
+		"@shopify/draggable": "^1.0.0-beta.8",
 		"bootstrap": "^5.1.3",
 		"moment": "^2.29.3",
 		"prop-types": "^15.7.2",

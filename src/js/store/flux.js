@@ -388,6 +388,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           } else {
             console.log("Hubo un error");
           }
+          console.log(body)
         } catch (error) {
           console.log("Hubo un error", error);
         }

@@ -16,6 +16,8 @@ const Navbar = () => {
     description: "",
   });
 
+  console.log(profile)
+
   const handleGender = (event) => {
     setProfile({ ...profile, [event.target.name]: event.target.value });
   };
@@ -26,7 +28,7 @@ const Navbar = () => {
       actions.getProfile();
     }
   }, []);
-  
+
   return (
     <>
       <div
@@ -38,7 +40,7 @@ const Navbar = () => {
       >
         <div className="modal-dialog">
           <div className="modal-content">
-            <div className="modal-header"> 
+            <div className="modal-header">
               {profileUser.gender == "Hombre" ? (
                 <img
                   src="https://www.w3schools.com/howto/img_avatar.png"
@@ -174,24 +176,34 @@ const Navbar = () => {
                 )}
               </div>
               <h5 className="form-label">Descripción</h5>
-              {profileUser.description == null ? (
-                              <textarea
-                              className="form-control mt-3"
-                              rows="2"
-                              id="description"
-                              name="description"
-                              placeholder="Cuentanos sobre ti"
-                              onChange={(event) =>
-                                setProfile({
-                                  ...profile,
-                                  [event.target.name]: event.target.value,
-                                })
-                              }
-                            ></textarea>
+              {profileUser.description == null && profileUser.description == "" ? (
+                <textarea
+                  className="form-control mt-3"
+                  rows="2"
+                  id="description"
+                  name="description"
+                  placeholder="Cuentanos sobre ti"
+                  onChange={(event) =>
+                    setProfile({
+                      ...profile,
+                      [event.target.name]: event.target.value,
+                    })
+                  }
+                ></textarea>
               ) : (
-                <>
-                  <p className="border border-1 p-3">{profileUser.description}</p>
-                </>
+                <textarea
+                  className="form-control mt-3"
+                  rows="2"
+                  id="description"
+                  name="description"
+                  placeholder={profileUser.description}
+                  onChange={(event) =>
+                    setProfile({
+                      ...profile,
+                      [event.target.name]: event.target.value,
+                    })
+                  }
+                ></textarea>
               )}
             </div>
             <div className="modal-footer">
@@ -201,21 +213,21 @@ const Navbar = () => {
                 data-bs-dismiss="modal">
                 Cerrar
               </button>
-                <Link
-                  type="button"
-                  className="btn btn-primary"
-                  to="/dashboard"
-                  onClick={() =>
-                    actions.editProfile(
-                      profileUser.name,
-                      profileUser.lastname,
-                      profile.gender,
-                      profile.description
-                    )
-                  }
-                  data-bs-dismiss="modal">
-                  Guardar
-                </Link>
+              <Link
+                type="button"
+                className="btn btn-primary"
+                to="/dashboard"
+                onClick={() =>
+                  actions.editProfile(
+                    profile.name,
+                    profile.lastname,
+                    profile.gender,
+                    profile.description
+                  )
+                }
+                data-bs-dismiss="modal">
+                Guardar
+              </Link>
             </div>
           </div>
         </div>
