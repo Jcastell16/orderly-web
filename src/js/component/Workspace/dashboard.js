@@ -23,7 +23,7 @@ const Dashboard = () => {
       <Navbar />
       <div className="container mt-4 pt-4 mb-5 pb-5">
         <div className="d-flex flex-row mb-3" style={{ height: "350px" }}>
-          <div className="col-xs-6 text-left shadow-lg  me-3 bg-light rounded-3 w-100">
+          <div className="col-xs-6 text-left shadow-lg  me-3 bg-light rounded-3">
             <div className="d-flex ps-5 pt-4">
               <div>
                 <i className="fas fa-tasks pe-1"></i>

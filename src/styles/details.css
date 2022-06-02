@@ -16,3 +16,8 @@
   grid-auto-rows: 100px;
 }
 
+.ScrollStyle
+{
+    min-height: 560px;
+    overflow-y: scroll;
+}
