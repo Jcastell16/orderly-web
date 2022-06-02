@@ -54,7 +54,7 @@ export const Contact = () => (
                                         </div>
                                     </div>
                                     <div className="col-md-12">
-                                        <input type="submit" className="btn btn-light btn-xl mt-3" value="ENVIAR" onclick="alert('Su Datos fueron enviados con exito, lo estaremos contactando')"/>
+                                        <input type="submit" className="btn btn-light btn-xl mt-3" value="ENVIAR"/>
                                     </div>
                                 </div>
                             </div>
