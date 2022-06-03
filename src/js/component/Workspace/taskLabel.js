@@ -16,7 +16,7 @@ export const Tasklabel = ({ task, item }) => {
         id: task.id,
         due_date: "",
         priority: task.priority,
-        members: []
+        column: task.columntask_id
     })
     const [member, setMember]= useState({
         id: ""
@@ -101,6 +101,14 @@ export const Tasklabel = ({ task, item }) => {
                                 }
                             />
                     </div>
+                    <br/>
+                    <h6>Cambiar de columna</h6>
+                    <select className="form-select" aria-label="Default select example" id="select-type" name="column" value={updateTask.column} onChange={(event) => setUpdateTask({ ...updateTask, [event.target.name]: event.target.value })}>
+                        <option defaultValue></option>
+                        {store.columnboard.map((item)=>(
+                            <option value={item.id}>{item.name}</option>
+                        ))}
+                    </select>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
